@@ -256,11 +256,14 @@ section.doc-section:first-of-type{ border-top:none; }
 
 /* ---------- Toggle ---------- */
 .toggle{ width:44px; height:24px; border-radius:var(--r-full); background:var(--gray-300); position:relative; cursor:pointer; transition: background var(--dur-base) var(--ease-standard); flex-shrink:0;}
-.toggle .knob{ position:absolute; top:2px; left:2px; width:20px; height:20px; border-radius:50%; background:#fff; box-shadow:var(--e-1); transition: transform var(--dur-base) var(--ease-decel); }
+.toggle .knob{ position:absolute; top:2px; left:2px; width:20px; height:20px; border-radius:50%; background:#fff; box-shadow:var(--e-1); transition: transform var(--dur-base) var(--ease-decel), width var(--dur-fast) var(--ease-standard); }
 .toggle.on{ background:var(--primary-base); }
 .toggle.on .knob{ transform:translateX(20px); }
+.toggle:active .knob{ width:23px; }
+.toggle.on:active .knob{ transform:translateX(17px); }
 .toggle.st-disabled{ background:var(--gray-200); cursor:not-allowed; }
 .toggle.st-disabled .knob{ background:var(--gray-100); }
+.toggle.st-disabled:active .knob{ width:20px; }
 
 /* ---------- Checkbox ---------- */
 .chk{ width:22px; height:22px; border-radius:7px; border:2px solid var(--gray-400); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all var(--dur-fast) var(--ease-standard); flex-shrink:0; background:#fff;}
@@ -786,7 +789,7 @@ document.querySelectorAll(<span class="tok-str">'.segment button'</span>).forEac
               <div class="lbl-title">서버 시간 동기화</div>
               <div class="lbl-desc">켜면 시간이 서버 기준으로 고정되고, 아래 시간 조절이 잠깁니다.</div>
             </div>
-            <div class="toggle" id="syncToggle" onclick="toggleSync()"></div>
+            <div class="toggle" id="syncToggle" onclick="toggleSync()"><div class="knob"></div></div>
           </div>
 
           <div class="lock-target" id="timeLockTarget">
@@ -801,10 +804,10 @@ document.querySelectorAll(<span class="tok-str">'.segment button'</span>).forEac
 
         <div class="block-label">State Preview</div>
         <div class="state-grid">
-          <div class="state-cell"><div class="toggle"></div><span>Off</span></div>
-          <div class="state-cell"><div class="toggle on"></div><span>On</span></div>
-          <div class="state-cell"><div class="toggle" style="outline:3px solid rgba(49,130,246,0.25); outline-offset:2px;"></div><span>Focused</span></div>
-          <div class="state-cell"><div class="toggle st-disabled"></div><span>Disabled</span></div>
+          <div class="state-cell"><div class="toggle"><div class="knob"></div></div><span>Off</span></div>
+          <div class="state-cell"><div class="toggle on"><div class="knob"></div></div><span>On</span></div>
+          <div class="state-cell"><div class="toggle" style="box-shadow:0 0 0 4px rgba(49,130,246,0.18);"><div class="knob"></div></div><span>Focused</span></div>
+          <div class="state-cell"><div class="toggle st-disabled"><div class="knob"></div></div><span>Disabled</span></div>
         </div>
 
         <div class="block-label">Do / Don't</div>
@@ -815,7 +818,9 @@ document.querySelectorAll(<span class="tok-str">'.segment button'</span>).forEac
 
         <div class="block-label">Code Example</div>
         <div class="code-block">
-&lt;<span class="tok-key">div</span> <span class="tok-key">class</span>=<span class="tok-str">"toggle"</span> <span class="tok-key">onclick</span>=<span class="tok-str">"toggleSync()"</span>&gt;&lt;/<span class="tok-key">div</span>&gt;
+&lt;<span class="tok-key">div</span> <span class="tok-key">class</span>=<span class="tok-str">"toggle"</span> <span class="tok-key">onclick</span>=<span class="tok-str">"toggleSync()"</span>&gt;
+  &lt;<span class="tok-key">div</span> <span class="tok-key">class</span>=<span class="tok-str">"knob"</span>&gt;&lt;/<span class="tok-key">div</span>&gt;
+&lt;/<span class="tok-key">div</span>&gt;
 &lt;<span class="tok-key">div</span> <span class="tok-key">class</span>=<span class="tok-str">"lock-target"</span> <span class="tok-key">id</span>=<span class="tok-str">"timeLockTarget"</span>&gt;
   <span class="tok-com">&lt;!-- Stepper + 라임 그린 "동기화 끄기" 버튼 --&gt;</span>
 &lt;/<span class="tok-key">div</span>&gt;
