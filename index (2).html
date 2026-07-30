@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SuperPlat Design System</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<style>
+/* ============================================================
+   SuperPlat Design System — Tokens
+============================================================ */
+:root{
+  --font-ui: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'SF Mono', 'JetBrains Mono', 'Roboto Mono', Consolas, monospace;
+
+  /* Primary — Toss Blue */
+  --primary-base: #3182F6;
+  /* Secondary — Slate */
+  --secondary-base: #64748B;
+
+  /* Neutrals */
+  --gray-25: #FCFCFD;
+  --gray-50: #F8F9FA;
+  --gray-100: #F1F3F5;
+  --gray-200: #E9ECEF;
+  --gray-300: #DEE2E6;
+  --gray-400: #CED4DA;
+  --gray-500: #ADB5BD;
+  --gray-600: #868E96;
+  --gray-700: #495057;
+  --gray-800: #343A40;
+  --gray-900: #212529;
+
+  /* Semantic */
+  --bg-page: #FFFFFF;
+  --bg-canvas: #F8F9FA;
+  --bg-card: #FFFFFF;
+  --text-primary: #191F28;
+  --text-secondary: #4E5968;
+  --text-tertiary: #8B95A1;
+  --border-default: #E5E8EB;
+
+  /* SuperPlat brand accent (from production project) */
+  --brand-lime: #CBF400;
+
+  /* Spacing */
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 20px; --sp-6: 24px; --sp-8: 32px; --sp-10: 40px;
+  --sp-12: 48px; --sp-16: 64px;
+
+  /* Radius */
+  --r-sm: 6px; --r-md: 10px; --r-lg: 16px; --r-xl: 22px; --r-full: 999px;
+
+  /* Elevation */
+  --e-0: none;
+  --e-1: 0 1px 2px rgba(19,29,44,0.06);
+  --e-2: 0 2px 8px rgba(19,29,44,0.08);
+  --e-3: 0 6px 20px rgba(19,29,44,0.10);
+  --e-4: 0 14px 34px rgba(19,29,44,0.14);
+  --e-5: 0 28px 60px rgba(19,29,44,0.20);
+
+  /* Motion */
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --dur-slow: 320ms;
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-decel: cubic-bezier(0, 0, 0.2, 1);
+  --ease-accel: cubic-bezier(0.4, 0, 1, 1);
+}
+
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family: var(--font-ui);
+  background: var(--bg-page);
+  color: var(--text-primary);
+  -webkit-font-smoothing:antialiased;
+  font-size:15px;
+  line-height:1.6;
+}
+::selection{ background: rgba(49,130,246,0.18); }
+
+a{ color:inherit; text-decoration:none; }
+code, .mono{ font-family:var(--font-mono); }
+
+/* ---------- Layout ---------- */
+.shell{ display:flex; min-height:100vh; }
+
+.sidebar{
+  width:264px; flex-shrink:0;
+  border-right:1px solid var(--border-default);
+  position:sticky; top:0; height:100vh; overflow-y:auto;
+  padding: var(--sp-6) var(--sp-4) var(--sp-12);
+  background: var(--bg-page);
+}
+.sidebar::-webkit-scrollbar{width:6px;}
+.sidebar::-webkit-scrollbar-thumb{background:var(--gray-300); border-radius:4px;}
+
+.brand{
+  display:flex; align-items:center; gap:10px;
+  padding: 0 var(--sp-2) var(--sp-6);
+}
+.brand-mark{
+  width:32px; height:32px; border-radius:9px;
+  background: linear-gradient(145deg, var(--primary-base), #1B64DA);
+  display:flex; align-items:center; justify-content:center;
+  color:#fff; font-weight:800; font-size:14px;
+  box-shadow: var(--e-2);
+}
+.brand-text{ font-weight:800; font-size:15px; letter-spacing:-0.01em; }
+.brand-sub{ font-size:11px; color:var(--text-tertiary); font-weight:600; letter-spacing:0.02em; }
+
+.nav-group{ margin-bottom: var(--sp-5); }
+.nav-group-title{
+  font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em;
+  color: var(--text-tertiary); padding: var(--sp-2) var(--sp-3); margin-top:var(--sp-2);
+}
+.nav-link{
+  display:flex; align-items:center; gap:8px;
+  padding: 7px var(--sp-3); border-radius:8px;
+  font-size:13.5px; font-weight:500; color:var(--text-secondary);
+  transition: background var(--dur-fast) var(--ease-standard), color var(--dur-fast) var(--ease-standard);
+  cursor:pointer;
+}
+.nav-link:hover{ background:var(--gray-50); color:var(--text-primary); }
+.nav-link.active{ background:rgba(49,130,246,0.09); color:var(--primary-base); font-weight:700; }
+.nav-dot{ width:5px; height:5px; border-radius:50%; background:var(--gray-300); flex-shrink:0; }
+.nav-link.active .nav-dot{ background:var(--primary-base); }
+.nav-tag{ margin-left:auto; font-size:9px; font-weight:800; background:var(--brand-lime); color:#15181D; padding:2px 6px; border-radius:var(--r-full); flex-shrink:0; }
+
+.main{ flex:1; min-width:0; padding: var(--sp-16) clamp(24px, 6vw, 88px); max-width:1180px; }
+
+.page-hero{ margin-bottom:88px; }
+.eyebrow{
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:12px; font-weight:700; color:var(--primary-base);
+  background:rgba(49,130,246,0.08); padding:6px 12px; border-radius:var(--r-full);
+  margin-bottom:var(--sp-5); letter-spacing:0.01em;
+}
+.page-hero h1{ font-size:44px; font-weight:800; letter-spacing:-0.03em; line-height:1.2; max-width:720px;}
+.page-hero p{ margin-top:var(--sp-4); font-size:16.5px; color:var(--text-secondary); max-width:620px; line-height:1.7;}
+.hero-stats{ display:flex; gap:var(--sp-8); margin-top:var(--sp-8); flex-wrap:wrap;}
+.hero-stat b{ font-size:26px; font-weight:800; display:block; }
+.hero-stat span{ font-size:12.5px; color:var(--text-tertiary); font-weight:600; }
+
+section.doc-section{ padding-top:56px; margin-top:56px; border-top:1px solid var(--border-default); scroll-margin-top: 24px;}
+section.doc-section:first-of-type{ border-top:none; }
+
+.sec-head{ margin-bottom: var(--sp-8); }
+.sec-kicker{ font-size:12px; font-weight:700; color:var(--secondary-base); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:8px;}
+.sec-head h2{ font-size:28px; font-weight:800; letter-spacing:-0.02em; }
+.sec-head p{ margin-top:10px; color:var(--text-secondary); max-width:660px; font-size:14.5px; line-height:1.75;}
+
+.block-label{ font-size:12.5px; font-weight:700; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:0.05em; margin: var(--sp-8) 0 var(--sp-3); }
+.block-label:first-child{ margin-top:0; }
+
+/* ---------- Cards / surfaces ---------- */
+.card{
+  background:var(--bg-card); border:1px solid var(--border-default);
+  border-radius: var(--r-lg); padding:var(--sp-6);
+  transition: box-shadow var(--dur-base) var(--ease-standard), transform var(--dur-base) var(--ease-standard);
+}
+.card:hover{ box-shadow: var(--e-2); }
+
+.preview-stage{
+  background: var(--bg-canvas); border:1px solid var(--border-default);
+  border-radius: var(--r-lg); padding:var(--sp-10) var(--sp-8);
+  display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:var(--sp-6);
+  position:relative;
+}
+.preview-stage.dark{ background:#15181D; border-color:#15181D; }
+
+/* ---------- Palette ---------- */
+.palette-row{ display:grid; grid-template-columns:repeat(10,1fr); gap:8px; }
+.swatch{
+  border-radius:10px; height:74px; position:relative; cursor:pointer;
+  display:flex; flex-direction:column; justify-content:flex-end; padding:8px;
+  transition: transform var(--dur-fast) var(--ease-standard);
+  border:1px solid rgba(0,0,0,0.04);
+}
+.swatch:hover{ transform: translateY(-3px); box-shadow: var(--e-2); }
+.swatch b{ font-size:11px; font-weight:700; }
+.swatch span{ font-size:9.5px; font-family:var(--font-mono); opacity:0.85; }
+
+.usage-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:var(--sp-3); margin-top:var(--sp-3);}
+.usage-chip{
+  border:1px solid var(--border-default); border-radius:10px; padding:10px 12px;
+  font-size:12.5px; font-weight:600; color:var(--text-secondary); display:flex; align-items:center; gap:8px;
+}
+.usage-chip .dot{ width:8px; height:8px; border-radius:3px; flex-shrink:0; }
+
+/* ---------- Do / Don't ---------- */
+.dd-grid{ display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-4); margin-top:var(--sp-4);}
+.dd-card{ border-radius:var(--r-lg); padding:var(--sp-5); border:1px solid var(--border-default);}
+.dd-card.do{ background:#F1FBF4; border-color:#D3F0DC;}
+.dd-card.dont{ background:#FDF3F2; border-color:#F6DAD7;}
+.dd-tag{ font-size:11px; font-weight:800; letter-spacing:0.04em; text-transform:uppercase; display:flex; align-items:center; gap:6px; margin-bottom:8px;}
+.dd-card.do .dd-tag{ color:#1E9E52; }
+.dd-card.dont .dd-tag{ color:#E5493F; }
+.dd-card p{ font-size:13px; color:var(--text-secondary); line-height:1.65;}
+
+/* ---------- Code block ---------- */
+.code-block{
+  background:#15181D; color:#D6DEE8; border-radius:var(--r-md);
+  padding:var(--sp-5); font-family:var(--font-mono); font-size:12.5px; line-height:1.75;
+  overflow-x:auto; position:relative; margin-top:var(--sp-3);
+}
+.code-block .tok-key{ color:#7EC9FF; }
+.code-block .tok-str{ color:#B7F3B0; }
+.code-block .tok-com{ color:#6B7583; }
+.copy-btn{
+  position:absolute; top:10px; right:10px; background:#252A33; color:#9AA6B3;
+  border:none; border-radius:6px; padding:5px 10px; font-size:11px; cursor:pointer;
+  font-family:var(--font-ui); font-weight:600;
+}
+.copy-btn:hover{ background:#30363F; color:#fff; }
+
+/* ---------- Buttons (design-system components, not site chrome) ---------- */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  height:44px; padding:0 20px; border-radius:var(--r-md); border:none;
+  font-family:var(--font-ui); font-size:14.5px; font-weight:700; cursor:pointer;
+  transition: transform var(--dur-fast) var(--ease-standard), background var(--dur-fast) var(--ease-standard), box-shadow var(--dur-fast) var(--ease-standard);
+}
+.btn-primary{ background:var(--primary-base); color:#fff; }
+.btn-primary:hover{ background:#1B6FE0; }
+.btn-primary:active, .btn-primary.st-pressed{ background:#125BC4; transform:scale(0.97); }
+.btn-primary.st-disabled{ background:var(--gray-200); color:var(--gray-500); cursor:not-allowed; }
+.btn-secondary{ background:#fff; color:var(--secondary-base); border:1.5px solid var(--gray-300); }
+.btn-secondary:hover{ background:var(--gray-50); border-color:var(--gray-400); }
+.btn-secondary.st-disabled{ background:#fff; color:var(--gray-400); border-color:var(--gray-200); cursor:not-allowed;}
+.btn .spinner{
+  width:15px; height:15px; border-radius:50%; border:2px solid rgba(255,255,255,0.35);
+  border-top-color:#fff; animation: spin 0.7s linear infinite;
+}
+@keyframes spin{ to{ transform:rotate(360deg); } }
+
+.state-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:var(--sp-3); margin-top:var(--sp-4);}
+.state-cell{
+  border:1px solid var(--border-default); border-radius:var(--r-md); padding:var(--sp-4);
+  display:flex; flex-direction:column; align-items:center; gap:10px; background:var(--bg-canvas);
+}
+.state-cell span{ font-size:11px; font-weight:700; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:0.04em;}
+
+/* ---------- Spec grid (Variants / Sizes) ---------- */
+.spec-grid{ display:grid; gap:var(--sp-3); margin-top:var(--sp-4); }
+.spec-grid.cols-2{ grid-template-columns:repeat(2,1fr); }
+.spec-grid.cols-4{ grid-template-columns:repeat(4,1fr); }
+.spec-card{ border:1px solid var(--border-default); border-radius:var(--r-md); padding:var(--sp-4); background:var(--bg-canvas); text-align:center; }
+.spec-card .spec-title{ font-size:12.5px; font-weight:800; margin-bottom:10px; color:var(--text-secondary); }
+.spec-card .spec-preview{ display:flex; align-items:center; justify-content:center; min-height:56px; margin-bottom:6px; }
+.chip-soon{ display:inline-block; font-size:11px; font-weight:700; color:var(--text-tertiary); border:1px dashed var(--gray-300); border-radius:var(--r-full); padding:4px 10px; opacity:0.7; }
+.chip-done{ display:inline-block; font-size:11px; font-weight:700; color:var(--primary-base); background:rgba(49,130,246,0.08); border-radius:var(--r-full); padding:4px 10px; }
+
+/* ---------- Blueprint API table ---------- */
+.api-table{ width:100%; border-collapse:collapse; font-size:13px; }
+.api-table th{ text-align:left; padding:10px 12px; color:var(--text-tertiary); font-size:11.5px; text-transform:uppercase; letter-spacing:0.04em; border-bottom:1px solid var(--border-default);}
+.api-table td{ padding:12px; border-bottom:1px solid var(--gray-100); vertical-align:top; }
+.api-table code{ background:var(--gray-100); padding:3px 7px; border-radius:6px; font-size:12px; font-weight:700; color:var(--primary-base);}
+.api-exposed{ display:inline-block; font-size:10.5px; font-weight:700; color:#1E9E52; background:#EAFBEF; border-radius:var(--r-full); padding:3px 8px; margin-left:6px; }
+
+/* ---------- Developer notes ---------- */
+.note-list{ display:grid; gap:10px; margin-top:var(--sp-3); }
+.note-item{ display:flex; gap:10px; align-items:flex-start; font-size:13.5px; line-height:1.65; color:var(--text-secondary); background:var(--bg-canvas); border-radius:var(--r-md); padding:12px 14px; }
+.note-item b{ color:var(--text-primary); }
+.note-num{ flex-shrink:0; width:18px; height:18px; border-radius:50%; background:rgba(49,130,246,0.12); color:var(--primary-base); font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; margin-top:1px; }
+
+/* ---------- Timeline (animation) ---------- */
+.anim-timeline{ display:grid; gap:var(--sp-4); margin-top:var(--sp-3); }
+.anim-row{ display:flex; align-items:center; gap:var(--sp-4); }
+.anim-row .anim-tag{ width:90px; flex-shrink:0; font-size:12.5px; font-weight:800; color:var(--text-secondary); }
+.anim-row .anim-meta{ width:190px; flex-shrink:0; font-size:12px; color:var(--text-tertiary); }
+
+/* ---------- Playground ---------- */
+.playground{ border:1px solid var(--border-default); border-radius:var(--r-lg); overflow:hidden; margin-top:var(--sp-4); }
+.pg-stage{ min-height:180px; display:flex; align-items:center; justify-content:center; background: radial-gradient(var(--gray-200) 1px, transparent 1px) 0 0/16px 16px, var(--bg-canvas); }
+.pg-controls{ padding:var(--sp-5); background:#fff; border-top:1px solid var(--border-default); display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:var(--sp-4); }
+.pg-field label{ display:block; font-size:11px; font-weight:800; color:var(--text-tertiary); margin-bottom:8px; letter-spacing:0.03em; text-transform:uppercase; }
+.pg-check{ display:flex; align-items:center; gap:8px; font-size:13px; color:var(--text-secondary); cursor:pointer; margin-bottom:6px; }
+
+/* ---------- Close Button visual ---------- */
+.cb-demo{ --cb-size:36px; width:var(--cb-size); height:var(--cb-size); border-radius:50%; background:transparent; border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; position:relative; }
+.cb-demo .cb-visual{ width:28px; height:28px; border-radius:50%; background:var(--gray-100); display:flex; align-items:center; justify-content:center; transition:transform 80ms var(--ease-decel), background var(--dur-fast) var(--ease-standard); }
+.cb-demo:hover .cb-visual{ background:var(--gray-200); }
+.cb-demo.st-pressed .cb-visual{ transform:scale(0.94); }
+.cb-demo.st-disabled .cb-visual{ opacity:0.3; }
+.cb-demo.st-disabled{ cursor:not-allowed; }
+.cb-demo svg{ width:12px; height:12px; color:var(--secondary-base); }
+.hit-guide{ border:1.5px dashed var(--primary-base); border-radius:12px; display:flex; align-items:center; justify-content:center; position:relative; }
+.hit-guide .visual-circle{ background:#fff; border:1px solid var(--border-default); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:var(--e-1); font-size:10.5px; font-weight:700; color:var(--text-tertiary); }
+.hit-caption{ text-align:center; font-size:11px; color:var(--text-tertiary); margin-top:10px; }
+
+/* ---------- Blueprint flow diagram ---------- */
+.flow-diagram{ display:flex; flex-direction:column; align-items:center; margin-top:var(--sp-4); }
+.flow-node{ background:#fff; border:1px solid var(--border-default); border-radius:var(--r-md); padding:10px 18px; font-size:13px; font-weight:700; min-width:260px; text-align:center; box-shadow:var(--e-1); }
+.flow-node.event{ color:var(--primary-base); background:rgba(49,130,246,0.08); border-color:transparent; }
+.flow-arrow{ height:22px; width:2px; background:var(--gray-300); position:relative; }
+.flow-arrow::after{ content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%); border:5px solid transparent; border-top-color:var(--gray-300); }
+
+/* ---------- Usage location chips ---------- */
+.usage-loc{ display:flex; flex-wrap:wrap; gap:8px; margin-top:var(--sp-3); }
+.usage-loc span{ font-size:12px; font-weight:700; padding:6px 13px; border-radius:var(--r-full); background:rgba(49,130,246,0.08); color:var(--primary-base); }
+
+/* ---------- Segment ---------- */
+.segment{
+  display:inline-flex; background:var(--gray-100); border-radius:var(--r-full); padding:4px; gap:2px;
+}
+.segment.secondary{ background:#EEF1F4; }
+.segment button{
+  border:none; background:transparent; padding:9px 22px; border-radius:var(--r-full);
+  font-family:var(--font-ui); font-size:13.5px; font-weight:700; color:var(--text-tertiary);
+  cursor:pointer; transition: all var(--dur-base) var(--ease-standard); position:relative;
+}
+.segment button.active{ background:#fff; color:var(--primary-base); box-shadow: var(--e-1); }
+.segment.secondary button.active{ color:var(--secondary-base); }
+
+/* ---------- Toggle ---------- */
+.toggle{ width:44px; height:24px; border-radius:var(--r-full); background:var(--gray-300); position:relative; cursor:pointer; transition: background var(--dur-base) var(--ease-standard); flex-shrink:0;}
+.toggle .knob{ position:absolute; top:2px; left:2px; width:20px; height:20px; border-radius:50%; background:#fff; box-shadow:var(--e-1); transition: transform var(--dur-base) var(--ease-decel), width var(--dur-fast) var(--ease-standard); }
+.toggle.on{ background:var(--primary-base); }
+.toggle.on .knob{ transform:translateX(20px); }
+.toggle:active .knob{ width:23px; }
+.toggle.on:active .knob{ transform:translateX(17px); }
+.toggle.st-disabled{ background:var(--gray-200); cursor:not-allowed; }
+.toggle.st-disabled .knob{ background:var(--gray-100); }
+.toggle.st-disabled:active .knob{ width:20px; }
+
+/* ---------- Checkbox ---------- */
+.chk{ width:22px; height:22px; border-radius:7px; border:2px solid var(--gray-400); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all var(--dur-fast) var(--ease-standard); flex-shrink:0; background:#fff;}
+.chk.on{ background:var(--primary-base); border-color:var(--primary-base); }
+.chk.on svg{ width:13px; height:13px; }
+.chk.st-disabled{ border-color:var(--gray-200); background:var(--gray-100); cursor:not-allowed;}
+.chk-row{ display:flex; align-items:center; gap:10px; font-size:13.5px; font-weight:600; color:var(--text-secondary);}
+
+/* ---------- Stepper ---------- */
+.stepper{ display:flex; align-items:center; height:40px; border:1px solid var(--gray-300); border-radius:var(--r-full); overflow:hidden; width:fit-content;}
+.stepper button{ width:38px; height:100%; border:none; background:#fff; font-size:16px; font-weight:700; color:var(--secondary-base); cursor:pointer; transition:background var(--dur-fast);}
+.stepper button:hover{ background:var(--gray-50); }
+.stepper .val{ width:44px; text-align:center; font-weight:800; font-size:14px; }
+
+/* ---------- Slider ---------- */
+.slider-wrap{ width:260px; }
+.slider-track{ height:6px; border-radius:var(--r-full); background:var(--gray-200); position:relative; cursor:pointer;}
+.slider-fill{ position:absolute; height:100%; border-radius:var(--r-full); background:var(--primary-base); left:0; }
+.slider-thumb{ width:18px; height:18px; border-radius:50%; background:#fff; border:3px solid var(--primary-base); position:absolute; top:50%; transform:translate(-50%,-50%); box-shadow:var(--e-1); cursor:grab;}
+
+/* ---------- Input ---------- */
+.field{ display:flex; flex-direction:column; gap:6px; width:260px; }
+.field label{ font-size:12.5px; font-weight:700; color:var(--text-secondary); }
+.field input{
+  height:44px; border-radius:var(--r-md); border:1.5px solid var(--gray-300); padding:0 14px;
+  font-family:var(--font-ui); font-size:14px; outline:none; transition:border var(--dur-fast) var(--ease-standard), box-shadow var(--dur-fast) var(--ease-standard);
+}
+.field input:focus{ border-color:var(--primary-base); box-shadow:0 0 0 4px rgba(49,130,246,0.14); }
+.field input.st-disabled{ background:var(--gray-100); color:var(--gray-500); cursor:not-allowed; }
+
+/* ---------- Dropdown ---------- */
+.dropdown{ position:relative; width:260px; }
+.dd-trigger{
+  height:44px; border:1.5px solid var(--gray-300); border-radius:var(--r-md); padding:0 14px;
+  display:flex; align-items:center; justify-content:space-between; cursor:pointer; font-size:14px; font-weight:600;
+  background:#fff; transition: border var(--dur-fast);
+}
+.dd-trigger.open{ border-color:var(--primary-base); }
+.dd-menu{
+  position:absolute; top:calc(100% + 6px); left:0; right:0; background:#fff; border:1px solid var(--border-default);
+  border-radius:var(--r-md); box-shadow:var(--e-3); padding:6px; display:none; z-index:5;
+}
+.dd-menu.open{ display:block; animation: ddIn var(--dur-fast) var(--ease-decel); }
+@keyframes ddIn{ from{ opacity:0; transform:translateY(-4px); } to{ opacity:1; transform:translateY(0);} }
+.dd-item{ padding:10px 12px; border-radius:8px; font-size:13.5px; font-weight:600; cursor:pointer; color:var(--text-secondary);}
+.dd-item:hover{ background:var(--gray-50); }
+.dd-item.sel{ color:var(--primary-base); background:rgba(49,130,246,0.08); }
+
+/* ---------- Tooltip ---------- */
+.tt-wrap{ position:relative; display:inline-flex; }
+.tt-bubble{
+  position:absolute; bottom:calc(100% + 10px); left:50%; transform:translateX(-50%) translateY(4px);
+  background:#15181D; color:#fff; padding:7px 12px; border-radius:8px; font-size:12px; font-weight:600;
+  white-space:nowrap; opacity:0; pointer-events:none; transition: all var(--dur-fast) var(--ease-decel);
+}
+.tt-wrap:hover .tt-bubble{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+/* ---------- Modal ---------- */
+.modal-overlay{
+  position:fixed; inset:0; background:rgba(15,18,22,0.5); display:none; align-items:center; justify-content:center; z-index:100;
+  opacity:0; transition:opacity var(--dur-base) var(--ease-standard);
+}
+.modal-overlay.open{ display:flex; opacity:1; }
+.modal-card{ background:#fff; border-radius:var(--r-xl); padding:var(--sp-8); width:380px; box-shadow:var(--e-5); transform:scale(0.94) translateY(8px); transition:transform var(--dur-base) var(--ease-decel);}
+.modal-overlay.open .modal-card{ transform:scale(1) translateY(0); }
+.modal-card h3{ font-size:18px; font-weight:800; margin-bottom:10px;}
+.modal-card p{ font-size:13.5px; color:var(--text-secondary); line-height:1.7; margin-bottom:var(--sp-6);}
+.modal-actions{ display:flex; gap:10px; justify-content:flex-end; }
+
+/* ---------- Toast ---------- */
+.toast-stage{ display:flex; align-items:center; justify-content:center; height:120px; }
+.toast{
+  position:fixed; bottom:32px; left:50%; transform:translateX(-50%) translateY(120%);
+  background:#15181D; color:#fff; padding:14px 20px; border-radius:12px; font-size:13.5px; font-weight:700;
+  display:flex; align-items:center; gap:10px; box-shadow:var(--e-4); transition: transform var(--dur-slow) var(--ease-decel); z-index:200;
+}
+.toast.show{ transform:translateX(-50%) translateY(0); }
+.toast .tdot{ width:8px; height:8px; border-radius:50%; background:var(--brand-lime); }
+
+/* ---------- Segment live preview ---------- */
+.seg-preview-panel{
+  width:100%; max-width:420px; border:1px solid var(--border-default); border-radius:var(--r-lg);
+  padding:var(--sp-5); background:#fff; display:flex; flex-direction:column; gap:var(--sp-4);
+  transition: all var(--dur-base) var(--ease-standard);
+}
+.seg-preview-head{ display:flex; align-items:center; gap:12px; }
+.seg-preview-icon{
+  width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+  font-size:20px; background:var(--gray-50); flex-shrink:0; transition: background var(--dur-base) var(--ease-standard);
+}
+.seg-preview-title{ font-size:14.5px; font-weight:800; }
+.seg-preview-desc{ font-size:12px; color:var(--text-tertiary); margin-top:2px; }
+.seg-preview-swatch{
+  height:56px; border-radius:10px; transition: all var(--dur-slow) var(--ease-standard);
+  background: linear-gradient(120deg, #A9C9FF, #7FB2FF);
+  display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#fff;
+  letter-spacing:0.02em;
+}
+.seg-preview-swatch.toon{
+  background: linear-gradient(120deg, #FFD84D, #FF7A59);
+  border:3px solid #191F28; box-shadow: inset 0 0 0 2px #fff;
+}
+.seg-preview-tag{ font-size:11px; font-weight:700; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:0.04em; }
+
+/* ---------- Toggle sync-lock demo ---------- */
+.sync-row{
+  display:flex; align-items:center; justify-content:space-between; gap:var(--sp-4);
+  width:100%; max-width:420px;
+}
+.sync-row .lbl-title{ font-size:14px; font-weight:800; }
+.sync-row .lbl-desc{ font-size:12px; color:var(--text-tertiary); margin-top:2px; }
+.lock-target{
+  width:100%; max-width:420px; display:flex; align-items:center; justify-content:space-between; gap:var(--sp-3);
+  padding:var(--sp-4); border:1.5px solid var(--gray-300); border-radius:var(--r-md);
+  background:#fff; transition: all var(--dur-base) var(--ease-standard);
+}
+.lock-target.locked{
+  border:1.5px dashed var(--gray-400); filter:grayscale(0.6); opacity:0.75;
+}
+.lock-target .stepper{ pointer-events:auto; }
+.lock-target.locked .stepper{ pointer-events:none; }
+.lime-btn{
+  display:none; align-items:center; gap:6px; height:36px; padding:0 16px; border-radius:var(--r-full);
+  border:none; background:var(--brand-lime); color:#15181D; font-family:var(--font-ui); font-weight:800; font-size:12.5px;
+  cursor:pointer; flex-shrink:0; white-space:nowrap;
+}
+.lock-target.locked .lime-btn{ display:inline-flex; }
+
+.token-row{ display:flex; align-items:center; gap:var(--sp-4); padding:12px 0; border-bottom:1px solid var(--gray-100);}
+.token-row:last-child{ border-bottom:none; }
+.token-name{ width:70px; font-weight:800; font-size:13px; }
+.token-bar{ background:var(--primary-base); border-radius:4px; height:16px; }
+.token-val{ margin-left:auto; font-family:var(--font-mono); font-size:12px; color:var(--text-tertiary); }
+.radius-box{ width:64px; height:64px; background:var(--primary-base); }
+.border-box{ width:120px; height:64px; background:#fff; border-color:var(--gray-800); }
+.elev-box{ width:120px; height:80px; background:#fff; border-radius:14px; }
+
+/* ---------- Typography ---------- */
+.type-row{ padding:var(--sp-5) 0; border-bottom:1px solid var(--gray-100); display:flex; align-items:baseline; gap:var(--sp-6); flex-wrap:wrap;}
+.type-row:last-child{ border-bottom:none; }
+.type-meta{ width:180px; flex-shrink:0; font-size:12px; color:var(--text-tertiary); font-family:var(--font-mono); line-height:1.9;}
+.type-sample{ flex:1; min-width:280px; }
+
+/* ---------- Responsive preview ---------- */
+.rp-toolbar{ display:flex; gap:8px; margin-bottom:var(--sp-4); }
+.rp-toolbar button{ border:1px solid var(--gray-300); background:#fff; padding:8px 16px; border-radius:var(--r-full); font-size:12.5px; font-weight:700; cursor:pointer; color:var(--text-secondary);}
+.rp-toolbar button.active{ background:var(--text-primary); color:#fff; border-color:var(--text-primary);}
+.rp-frame{ margin:0 auto; transition:width var(--dur-slow) var(--ease-standard); border:8px solid #15181D; border-radius:20px; overflow:hidden; background:#fff;}
+.rp-inner{ padding:var(--sp-6); background:linear-gradient(180deg,#EFF3F8,#fff);}
+.rp-panel{ background:#fff; border-radius:14px; padding:var(--sp-5); box-shadow:var(--e-2);}
+.rp-panel h4{ font-size:14px; font-weight:800; margin-bottom:var(--sp-4);}
+.rp-panel .row{ display:flex; align-items:center; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--gray-100); font-size:12.5px; font-weight:600; color:var(--text-secondary);}
+
+/* ---------- A11y / Unreal ---------- */
+.a11y-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:var(--sp-4); }
+.a11y-card{ border:1px solid var(--border-default); border-radius:var(--r-lg); padding:var(--sp-5);}
+.a11y-card h4{ font-size:14px; font-weight:800; margin-bottom:6px; display:flex; align-items:center; gap:8px;}
+.a11y-card p{ font-size:13px; color:var(--text-secondary); line-height:1.7;}
+
+.folder-tree{ font-family:var(--font-mono); font-size:12.5px; line-height:2; color:var(--text-secondary); }
+.folder-tree b{ color:var(--text-primary); }
+.folder-tree .cm{ color:var(--gray-500); }
+
+.naming-table{ width:100%; border-collapse:collapse; font-size:13px; }
+.naming-table th{ text-align:left; padding:10px 12px; color:var(--text-tertiary); font-size:11.5px; text-transform:uppercase; letter-spacing:0.04em; border-bottom:1px solid var(--border-default);}
+.naming-table td{ padding:12px; border-bottom:1px solid var(--gray-100); }
+.naming-table code{ background:var(--gray-100); padding:3px 7px; border-radius:6px; font-size:12px; font-weight:700; color:var(--primary-base);}
+
+.brand-callout{ border:1px dashed rgba(203,244,0,0.5); background:#FBFFEA; border-radius:var(--r-lg); padding:var(--sp-5); display:flex; gap:14px; align-items:flex-start;}
+.brand-callout .chip{ width:20px; height:20px; border-radius:6px; background:var(--brand-lime); flex-shrink:0; margin-top:2px;}
+.brand-callout p{ font-size:13px; color:var(--text-secondary); line-height:1.7;}
+.brand-callout b{ color:var(--text-primary); }
+
+footer.site-footer{ margin-top:100px; padding-top:32px; border-top:1px solid var(--border-default); color:var(--text-tertiary); font-size:12.5px; display:flex; justify-content:space-between;}
+
+@media (max-width: 980px){
+  .sidebar{ display:none; }
+  .main{ padding: var(--sp-8) var(--sp-4); }
+  .usage-grid, .dd-grid, .a11y-grid{ grid-template-columns:1fr; }
+  .palette-row{ grid-template-columns:repeat(5,1fr); }
+  .state-grid{ grid-template-columns:repeat(2,1fr); }
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <!-- ============================================================ SIDEBAR -->
+  <nav class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark">SP</div>
+      <div>
+        <div class="brand-text">SuperPlat</div>
+        <div class="brand-sub">DESIGN SYSTEM</div>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-title">Foundation</div>
+      <div class="nav-link" data-target="color"><span class="nav-dot"></span>Color</div>
+      <div class="nav-link" data-target="typography"><span class="nav-dot"></span>Typography</div>
+      <div class="nav-link" data-target="spacing"><span class="nav-dot"></span>Spacing</div>
+      <div class="nav-link" data-target="radius"><span class="nav-dot"></span>Radius</div>
+      <div class="nav-link" data-target="border"><span class="nav-dot"></span>Border</div>
+      <div class="nav-link" data-target="elevation"><span class="nav-dot"></span>Elevation</div>
+      <div class="nav-link" data-target="motion"><span class="nav-dot"></span>Motion</div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-title">Components</div>
+      <div class="nav-link" data-target="c-buttons"><span class="nav-dot"></span>Buttons</div>
+      <div class="nav-link" data-target="c-closebtn"><span class="nav-dot"></span>Close Button</div>
+      <div class="nav-link" data-target="c-segment"><span class="nav-dot"></span>Segment</div>
+      <div class="nav-link" data-target="c-toggle"><span class="nav-dot"></span>Toggle</div>
+      <div class="nav-link" data-target="c-slider"><span class="nav-dot"></span>Slider</div>
+      <div class="nav-link" data-target="c-stepper"><span class="nav-dot"></span>Stepper</div>
+      <div class="nav-link" data-target="c-input"><span class="nav-dot"></span>Input</div>
+      <div class="nav-link" data-target="c-dropdown"><span class="nav-dot"></span>Dropdown</div>
+      <div class="nav-link" data-target="c-checkbox"><span class="nav-dot"></span>Checkbox</div>
+      <div class="nav-link" data-target="c-tooltip"><span class="nav-dot"></span>Tooltip</div>
+      <div class="nav-link" data-target="c-modal"><span class="nav-dot"></span>Modal</div>
+      <div class="nav-link" data-target="c-toast"><span class="nav-dot"></span>Toast</div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-title">Patterns</div>
+      <div class="nav-link" data-target="p-responsive"><span class="nav-dot"></span>Responsive</div>
+      <div class="nav-link" data-target="p-a11y"><span class="nav-dot"></span>Accessibility</div>
+      <div class="nav-link" data-target="p-motion"><span class="nav-dot"></span>Animation</div>
+      <div class="nav-link" data-target="p-unreal"><span class="nav-dot"></span>Unreal Guide</div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-title">System</div>
+      <div class="nav-link" data-target="sys-motion"><span class="nav-dot"></span>Motion System</div>
+    </div>
+  </nav>
+
+  <!-- ============================================================ MAIN -->
+  <main class="main">
+
+    <div class="page-hero">
+      <div class="eyebrow">v1.0 · Production Design System</div>
+      <h1>SuperPlat Design System</h1>
+      <p>PC와 모바일에서 동일하게 동작하고, Unreal Engine(UMG)에 그대로 이식 가능한 실무 디자인 시스템입니다. Toss Design System, Material Design 3, Apple HIG의 원칙을 기반으로 설계되었습니다.</p>
+      <div class="hero-stats">
+        <div class="hero-stat"><b>2</b><span>COLOR SCALES</span></div>
+        <div class="hero-stat"><b>11</b><span>COMPONENTS</span></div>
+        <div class="hero-stat"><b>844×390</b><span>MOBILE BASE FRAME</span></div>
+        <div class="hero-stat"><b>1920×1080</b><span>UMG CANVAS</span></div>
+      </div>
+    </div>
+
+    <!-- ================================================= COLOR -->
+    <section class="doc-section" id="color">
+      <div class="sec-head">
+        <div class="sec-kicker">Foundation / 01</div>
+        <h2>Color</h2>
+        <p>Primary는 가장 중요한 액션(주요 버튼, 선택 상태, 포커스)에, Secondary는 보조 액션(필터, 아웃라인 버튼, 툴바)에 사용합니다. Disabled는 상호작용이 불가능한 상태를 명확히 전달합니다.</p>
+      </div>
+
+      <div class="block-label">Primary — Base #3182F6</div>
+      <div class="card">
+        <div class="palette-row" id="palette-primary"></div>
+        <div class="usage-grid">
+          <div class="usage-chip"><span class="dot" style="background:var(--primary-base)"></span>Primary Button</div>
+          <div class="usage-chip"><span class="dot" style="background:var(--primary-base)"></span>Toggle ON</div>
+          <div class="usage-chip"><span class="dot" style="background:var(--primary-base)"></span>Checkbox Selected</div>
+          <div class="usage-chip"><span class="dot" style="background:var(--primary-base)"></span>Focus Ring</div>
+          <div class="usage-chip"><span class="dot" style="background:var(--primary-base)"></span>Progress / Slider</div>
+          <div class="usage-chip"><span class="dot" style="background:var(--primary-base)"></span>현재 선택 상태 (Segment)</div>
+        </div>
+        <div class="block-label">Component Preview — Primary Segment</div>
+        <div class="preview-stage">
+          <div class="segment">
+            <button class="active">환경</button>
+            <button>화면</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="block-label">Secondary — Base #64748B</div>
+      <div class="card">
+        <div class="palette-row" id="palette-secondary"></div>
+        <div class="usage-grid">
+          <div class="usage-chip"><span class="dot" style="background:var(--secondary-base)"></span>Outlined Button</div>
+          <div class="usage-chip"><span class="dot" style="background:var(--secondary-base)"></span>필터 옵션</div>
+          <div class="usage-chip"><span class="dot" style="background:var(--secondary-base)"></span>Toolbar Icon</div>
+          <div class="usage-chip"><span class="dot" style="background:var(--secondary-base)"></span>Secondary Segment Tab</div>
+        </div>
+        <div class="block-label">Component Preview — Secondary Segment</div>
+        <div class="preview-stage">
+          <div class="segment secondary">
+            <button>일반</button>
+            <button class="active">카툰</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="block-label">Disabled Palette</div>
+      <div class="card">
+        <div class="usage-grid" style="grid-template-columns:repeat(3,1fr);">
+          <div class="usage-chip"><span class="dot" style="background:var(--gray-100)"></span>Background <span class="mono" style="margin-left:auto;color:var(--text-tertiary)">#F1F3F5</span></div>
+          <div class="usage-chip"><span class="dot" style="background:var(--gray-300)"></span>Border <span class="mono" style="margin-left:auto;color:var(--text-tertiary)">#DEE2E6</span></div>
+          <div class="usage-chip"><span class="dot" style="background:var(--gray-500)"></span>Text <span class="mono" style="margin-left:auto;color:var(--text-tertiary)">#ADB5BD</span></div>
+          <div class="usage-chip"><span class="dot" style="background:var(--gray-400)"></span>Icon <span class="mono" style="margin-left:auto;color:var(--text-tertiary)">#CED4DA</span></div>
+          <div class="usage-chip"><span class="dot" style="background:var(--gray-300)"></span>Selected BG <span class="mono" style="margin-left:auto;color:var(--text-tertiary)">#DEE2E6</span></div>
+          <div class="usage-chip"><span class="dot" style="background:var(--gray-600)"></span>Selected Text <span class="mono" style="margin-left:auto;color:var(--text-tertiary)">#868E96</span></div>
+        </div>
+        <div class="block-label">State Preview — Scene Setting 예제</div>
+        <div class="preview-stage" style="gap:var(--sp-4);">
+          <div class="stepper" style="opacity:0.55; pointer-events:none;">
+            <button>−</button><div class="val">3</div><button>+</button>
+          </div>
+          <div class="chk-row"><div class="chk st-disabled"></div>비활성 옵션 (선택 안됨)</div>
+          <div class="chk-row"><div class="chk st-disabled on" style="background:var(--gray-300); border-color:var(--gray-300);"></div>비활성 옵션 (선택됨)</div>
+        </div>
+      </div>
+
+      <div class="block-label">Usage</div>
+      <p style="font-size:13.5px; color:var(--text-secondary); line-height:1.8;">Primary는 화면당 하나의 핵심 액션에만 사용합니다. Secondary와 동시에 과도하게 사용하면 시각적 위계가 무너집니다. Disabled 상태는 항상 명도 대비 3:1 이상을 유지해 "선택 불가"임을 인지할 수 있어야 합니다.</p>
+      <div class="dd-grid">
+        <div class="dd-card do"><div class="dd-tag">✓ Do</div><p>한 화면에 Primary Button은 최대 1개, 나머지는 Secondary로 위계를 구분합니다.</p></div>
+        <div class="dd-card dont"><div class="dd-tag">✕ Don't</div><p>Primary 색상을 배경이나 장식 요소에 남용해 정작 중요한 액션이 묻히게 하지 않습니다.</p></div>
+      </div>
+
+      <div class="block-label">Code Example</div>
+      <div class="code-block" data-code="color-tokens">
+<span class="tok-com">/* SuperPlat — color tokens.css */</span>
+<span class="tok-key">:root</span> {
+  <span class="tok-key">--primary-500</span>: <span class="tok-str">#3182F6</span>;
+  <span class="tok-key">--secondary-500</span>: <span class="tok-str">#64748B</span>;
+  <span class="tok-key">--disabled-bg</span>: <span class="tok-str">#F1F3F5</span>;
+  <span class="tok-key">--disabled-text</span>: <span class="tok-str">#ADB5BD</span>;
+}
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      </div>
+    </section>
+
+    <!-- ================================================= TYPOGRAPHY -->
+    <section class="doc-section" id="typography">
+      <div class="sec-head">
+        <div class="sec-kicker">Foundation / 02</div>
+        <h2>Typography</h2>
+        <p>Pretendard 기반의 타입 스케일입니다. 국문/영문 혼용 환경(SuperPlat UI)에서 가독성과 위계를 동시에 확보하도록 설계했습니다.</p>
+      </div>
+      <div class="card">
+        <div class="type-row"><div class="type-meta">Display / 32<br>Bold · -0.02em<br>line-height 1.3</div><div class="type-sample" style="font-size:32px; font-weight:800; letter-spacing:-0.02em;">씬 세팅 (Scene Settings)</div></div>
+        <div class="type-row"><div class="type-meta">Heading / 22<br>Bold · -0.01em<br>line-height 1.4</div><div class="type-sample" style="font-size:22px; font-weight:700;">날씨 설정 · Weather</div></div>
+        <div class="type-row"><div class="type-meta">Title / 17<br>SemiBold<br>line-height 1.5</div><div class="type-sample" style="font-size:17px; font-weight:600;">위치 기반 동기화</div></div>
+        <div class="type-row"><div class="type-meta">Body / 15<br>Medium<br>line-height 1.65</div><div class="type-sample" style="font-size:15px; font-weight:500; color:var(--text-secondary);">필터를 적용하면 화면 전체의 톤이 변경됩니다. Toon Shader와 함께 사용할 수 있습니다.</div></div>
+        <div class="type-row"><div class="type-meta">Caption / 12<br>SemiBold · +0.02em<br>line-height 1.5</div><div class="type-sample" style="font-size:12px; font-weight:600; letter-spacing:0.02em; color:var(--text-tertiary);">TOUCH TARGET MIN 44×44PX</div></div>
+      </div>
+      <div class="block-label">Usage</div>
+      <p style="font-size:13.5px; color:var(--text-secondary);">Body 텍스트는 15px 미만으로 축소하지 않습니다. 모바일 Landscape(844×390) 기준 최소 크기가 가독성 하한선입니다.</p>
+      <div class="dd-grid">
+        <div class="dd-card do"><div class="dd-tag">✓ Do</div><p>Heading과 Body의 굵기 차이(Bold vs Medium)로 위계를 만듭니다.</p></div>
+        <div class="dd-card dont"><div class="dd-tag">✕ Don't</div><p>같은 굵기에서 크기만 줄여 위계를 표현하지 않습니다 — 대비가 약해집니다.</p></div>
+      </div>
+    </section>
+
+    <!-- ================================================= SPACING -->
+    <section class="doc-section" id="spacing">
+      <div class="sec-head"><div class="sec-kicker">Foundation / 03</div><h2>Spacing</h2>
+      <p>4px 베이스 스케일. 모든 패딩/마진/갭 값은 이 스케일 안에서만 선택합니다.</p></div>
+      <div class="card" id="spacing-list"></div>
+    </section>
+
+    <!-- ================================================= RADIUS -->
+    <section class="doc-section" id="radius">
+      <div class="sec-head"><div class="sec-kicker">Foundation / 04</div><h2>Radius</h2>
+      <p>카드는 Large, 버튼/입력은 Medium, 배지/토글은 Full을 사용합니다.</p></div>
+      <div class="card">
+        <div class="preview-stage">
+          <div style="text-align:center;"><div class="radius-box" style="border-radius:var(--r-sm);"></div><div class="token-val" style="margin:8px 0 0;">sm · 6px</div></div>
+          <div style="text-align:center;"><div class="radius-box" style="border-radius:var(--r-md);"></div><div class="token-val" style="margin:8px 0 0;">md · 10px</div></div>
+          <div style="text-align:center;"><div class="radius-box" style="border-radius:var(--r-lg);"></div><div class="token-val" style="margin:8px 0 0;">lg · 16px</div></div>
+          <div style="text-align:center;"><div class="radius-box" style="border-radius:var(--r-xl);"></div><div class="token-val" style="margin:8px 0 0;">xl · 22px</div></div>
+          <div style="text-align:center;"><div class="radius-box" style="border-radius:var(--r-full);"></div><div class="token-val" style="margin:8px 0 0;">full · 999px</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================= BORDER -->
+    <section class="doc-section" id="border">
+      <div class="sec-head"><div class="sec-kicker">Foundation / 05</div><h2>Border</h2>
+      <p>Default 보더는 컨텐츠 경계에, Focus 보더는 입력 상호작용에만 사용합니다.</p></div>
+      <div class="card">
+        <div class="preview-stage">
+          <div style="text-align:center;"><div class="border-box" style="border:1px solid var(--border-default);"></div><div class="token-val">1px · default</div></div>
+          <div style="text-align:center;"><div class="border-box" style="border:1.5px solid var(--gray-400);"></div><div class="token-val">1.5px · input</div></div>
+          <div style="text-align:center;"><div class="border-box" style="border:2px solid var(--primary-base); box-shadow:0 0 0 4px rgba(49,130,246,0.14);"></div><div class="token-val">2px · focus</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================= ELEVATION -->
+    <section class="doc-section" id="elevation">
+      <div class="sec-head"><div class="sec-kicker">Foundation / 06</div><h2>Elevation</h2>
+      <p>레벨이 높을수록 사용자와 가까운 레이어(Modal, Toast)를 의미합니다.</p></div>
+      <div class="card">
+        <div class="preview-stage">
+          <div class="elev-box" style="box-shadow:var(--e-1);"></div>
+          <div class="elev-box" style="box-shadow:var(--e-2);"></div>
+          <div class="elev-box" style="box-shadow:var(--e-3);"></div>
+          <div class="elev-box" style="box-shadow:var(--e-4);"></div>
+          <div class="elev-box" style="box-shadow:var(--e-5);"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================= MOTION -->
+    <section class="doc-section" id="motion">
+      <div class="sec-head"><div class="sec-kicker">Foundation / 07</div><h2>Motion</h2>
+      <p>Hover는 Fast, 상태 전환은 Base, 진입/퇴장은 Slow 듀레이션을 사용합니다. 버튼 위에 마우스를 올려 실제 모션을 확인하세요.</p></div>
+      <div class="card">
+        <table style="width:100%; border-collapse:collapse; font-size:13px;">
+          <tr style="color:var(--text-tertiary); font-size:11.5px; text-transform:uppercase;"><td style="padding:8px 0;">Token</td><td>Duration</td><td>Easing</td><td>Usage</td></tr>
+          <tr style="border-top:1px solid var(--gray-100);"><td style="padding:10px 0; font-weight:700;">fast</td><td>120ms</td><td class="mono">ease-standard</td><td>Hover, Ripple</td></tr>
+          <tr style="border-top:1px solid var(--gray-100);"><td style="padding:10px 0; font-weight:700;">base</td><td>200ms</td><td class="mono">ease-decel</td><td>Toggle, Segment, Dropdown</td></tr>
+          <tr style="border-top:1px solid var(--gray-100);"><td style="padding:10px 0; font-weight:700;">slow</td><td>320ms</td><td class="mono">ease-decel</td><td>Modal, Toast, Panel</td></tr>
+        </table>
+        <div class="block-label">Component Preview — Hover / Pressed</div>
+        <div class="preview-stage">
+          <button class="btn btn-primary" onmousedown="this.style.transform='scale(0.96)'" onmouseup="this.style.transform='scale(1)'">Hover / Press me</button>
+          <div class="tt-wrap"><button class="btn btn-secondary">Fade demo</button><div class="tt-bubble">opacity 0→1, 120ms</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================= COMPONENTS: BUTTONS -->
+    <section class="doc-section" id="c-buttons">
+      <div class="sec-head"><div class="sec-kicker">Components / 01</div><h2>Buttons</h2>
+      <p>가장 중요한 액션에는 Primary, 보조 액션에는 Secondary(Outlined)를 사용합니다.</p></div>
+      <div class="card">
+        <div class="preview-stage">
+          <button class="btn btn-primary">저장하기</button>
+          <button class="btn btn-secondary">취소</button>
+        </div>
+        <div class="block-label">State Preview</div>
+        <div class="state-grid">
+          <div class="state-cell"><button class="btn btn-primary">저장하기</button><span>Default</span></div>
+          <div class="state-cell"><button class="btn btn-primary" style="background:#1B6FE0;">저장하기</button><span>Hover</span></div>
+          <div class="state-cell"><button class="btn btn-primary st-pressed">저장하기</button><span>Pressed</span></div>
+          <div class="state-cell"><button class="btn btn-primary st-disabled" disabled>저장하기</button><span>Disabled</span></div>
+          <div class="state-cell"><button class="btn btn-primary" disabled><span class="spinner"></span>저장 중</button><span>Loading</span></div>
+        </div>
+        <div class="dd-grid">
+          <div class="dd-card do"><div class="dd-tag">✓ Do</div><p>Loading 상태에서는 버튼을 비활성화해 중복 클릭을 막습니다.</p></div>
+          <div class="dd-card dont"><div class="dd-tag">✕ Don't</div><p>Disabled 버튼에 Hover 스타일을 적용해 클릭 가능한 것처럼 보이게 하지 않습니다.</p></div>
+        </div>
+        <div class="block-label">Code Example</div>
+        <div class="code-block">
+&lt;<span class="tok-key">button</span> <span class="tok-key">class</span>=<span class="tok-str">"btn btn-primary"</span>&gt;저장하기&lt;/<span class="tok-key">button</span>&gt;
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+
+        <div class="block-label">Anatomy — Widget Tree</div>
+        <div class="folder-tree" style="border:1px solid var(--border-default); border-radius:var(--r-md); padding:var(--sp-5); background:var(--bg-canvas);">
+          <b>WBP_SP_Button</b><br>
+          └─ SizeBox_Root<br>
+          │　└─ Button_HitArea <span class="cm">// 실제 클릭 입력</span><br>
+          │　　└─ Overlay_Button<br>
+          │　　　├─ Border_Background <span class="cm">// 상태별 배경/보더</span><br>
+          │　　　├─ Border_ContentPadding<br>
+          │　　　├─ HorizontalBox_Content<br>
+          │　　　│　├─ LeadingIcon<br>
+          │　　　│　└─ Text_Label<br>
+          │　　　└─ HorizontalBox_Loading <span class="cm">// IsLoading=true일 때만 Visible</span><br>
+          │　　　　├─ Dot1 · Dot2 · Dot3
+        </div>
+
+        <div class="block-label">Variants</div>
+        <div class="spec-grid cols-2">
+          <div class="spec-card"><div class="spec-title">Primary Fill</div><div class="spec-preview"><button class="btn btn-primary" style="height:40px;">확인</button></div><span class="chip-done">완료</span></div>
+          <div class="spec-card"><div class="spec-title">Secondary Outlined</div><div class="spec-preview"><button class="btn btn-secondary" style="height:40px;">취소</button></div><span class="chip-done">완료</span></div>
+        </div>
+        <div style="display:flex; gap:8px; margin-top:10px;">
+          <span class="chip-soon">Danger · 확장 예정</span>
+          <span class="chip-soon">Primary Inverse · 확장 예정</span>
+        </div>
+
+        <div class="block-label">Sizes</div>
+        <div class="spec-grid cols-4">
+          <div class="spec-card"><div class="spec-title">S</div><div class="spec-preview"><button class="btn btn-primary" style="height:32px; padding:0 12px; font-size:13px; border-radius:8px;">버튼</button></div></div>
+          <div class="spec-card"><div class="spec-title">M</div><div class="spec-preview"><button class="btn btn-primary" style="height:40px;">버튼</button></div></div>
+          <div class="spec-card"><div class="spec-title">L</div><div class="spec-preview"><button class="btn btn-primary" style="height:48px; padding:0 20px; font-size:16px;">버튼</button></div></div>
+          <div class="spec-card"><div class="spec-title">XL</div><div class="spec-preview"><button class="btn btn-primary" style="height:56px; padding:0 24px; font-size:17px; border-radius:12px;">버튼</button></div></div>
+        </div>
+        <div style="margin-top:var(--sp-3); overflow-x:auto;">
+          <table class="naming-table">
+            <tr><th>Size</th><th>Height</th><th>Radius</th><th>Padding(H)</th><th>Font</th><th>Icon</th></tr>
+            <tr><td><code>S</code></td><td>32px</td><td>8px</td><td>12px</td><td>13 / SemiBold</td><td>16px</td></tr>
+            <tr><td><code>M</code></td><td>40px</td><td>10px</td><td>16px</td><td>15 / SemiBold</td><td>18px</td></tr>
+            <tr><td><code>L</code></td><td>48px</td><td>10px</td><td>20px</td><td>16 / SemiBold</td><td>20px</td></tr>
+            <tr><td><code>XL</code></td><td>56px</td><td>12px</td><td>24px</td><td>17 / Bold</td><td>22px</td></tr>
+          </table>
+        </div>
+
+        <div class="block-label">Animation</div>
+        <div class="anim-timeline">
+          <div class="anim-row"><div class="anim-tag">Pressed</div><div class="anim-meta">Scale 1.00 → 0.98</div><button class="btn btn-primary" style="height:40px; width:40px; padding:0;" onmousedown="this.style.transform='scale(0.98)'" onmouseup="this.style.transform='scale(1)'" onmouseleave="this.style.transform='scale(1)'">●</button><span style="font-size:11.5px; color:var(--text-tertiary);">클릭해서 재생</span></div>
+          <div class="anim-row"><div class="anim-tag">Loading</div><div class="anim-meta">Dot 순차 재생</div><button class="btn btn-primary" disabled style="pointer-events:none;"><span class="spinner"></span>저장</button></div>
+          <div class="anim-row"><div class="anim-tag">Hover</div><div class="anim-meta">BG Transition</div><div style="width:180px; height:36px; border-radius:10px; background:linear-gradient(90deg, var(--primary-base), #1B6FE0); display:flex; align-items:center; justify-content:center; font-size:11px; color:#fff;">120ms ease-standard</div></div>
+        </div>
+
+        <div class="block-label">Blueprint API</div>
+        <div style="overflow-x:auto;">
+          <table class="api-table">
+            <tr><th>Variable</th><th>Type</th><th>설명</th></tr>
+            <tr><td><code>ButtonType</code></td><td>E_SP_ButtonType</td><td>Primary / Secondary<span class="api-exposed">외부 노출</span></td></tr>
+            <tr><td><code>ButtonSize</code></td><td>E_SP_ButtonSize</td><td>S / M / L / XL<span class="api-exposed">외부 노출</span></td></tr>
+            <tr><td><code>ButtonText</code></td><td>Text</td><td>Text_Label 바인딩<span class="api-exposed">외부 노출</span></td></tr>
+            <tr><td><code>LeadingIcon</code></td><td>Brush</td><td>비어있으면 Collapsed<span class="api-exposed">외부 노출</span></td></tr>
+            <tr><td><code>IsLoading</code></td><td>Bool</td><td>true 시 입력 차단 + Dot 표시<span class="api-exposed">외부 노출</span></td></tr>
+            <tr><td><code>IsButtonEnabled</code></td><td>Bool</td><td>false 시 Disabled 스타일 적용<span class="api-exposed">외부 노출</span></td></tr>
+          </table>
+        </div>
+
+        <div class="block-label">Developer Notes</div>
+        <div class="note-list">
+          <div class="note-item"><span class="note-num">1</span><div><b>RefreshVisual() 우선순위</b> — Loading → Disabled → Pressed → Hover → Default 순서로 상태를 판별해 Background / Border / Text Color / Loading Visibility를 갱신합니다.</div></div>
+          <div class="note-item"><span class="note-num">2</span><div><b>Loading 중 입력 차단</b> — Hover 미적용, 중복 클릭 방지.</div></div>
+          <div class="note-item"><span class="note-num">3</span><div><b>스타일 함수 분리</b> — <code class="mono">Switch(ButtonType)</code> → <code class="mono">ApplyPrimaryStyle()</code> / <code class="mono">ApplySecondaryStyle()</code>. 초기엔 하드코딩, 이후 <code class="mono">DT_SP_UIColor</code>로 이관합니다.</div></div>
+        </div>
+
+        <div class="block-label">Playground</div>
+        <div class="playground">
+          <div class="pg-stage"><button class="btn" id="pgBtn">버튼</button></div>
+          <div class="pg-controls">
+            <div class="pg-field"><label>Type</label>
+              <div class="segment" data-pg="type" style="width:100%;"><button class="active" data-val="btn-primary">Primary</button><button data-val="btn-secondary">Secondary</button></div>
+            </div>
+            <div class="pg-field"><label>Size</label>
+              <div class="segment" data-pg="size" style="width:100%;"><button data-val="32px|0 12px|13px|8px">S</button><button class="active" data-val="44px|0 20px|14.5px|10px">M</button><button data-val="52px|0 24px|16px|10px">L</button><button data-val="60px|0 28px|17px|12px">XL</button></div>
+            </div>
+            <div class="pg-field"><label>State</label>
+              <label class="pg-check"><input type="checkbox" id="pgLoading">Loading</label>
+              <label class="pg-check"><input type="checkbox" id="pgDisabled">Disabled</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================= CLOSE BUTTON (NEW) -->
+    <section class="doc-section" id="c-closebtn">
+      <div class="sec-head"><div class="sec-kicker">Components / 02</div><h2>Close Button</h2>
+      <p><code class="mono">WBP_SP_Btn_Close</code> — Popup, Modal, Drawer, Scene Settings, Panel에서 공통으로 쓰는 닫기 버튼입니다. Hit Area와 Visual 크기를 분리해 PC/Mobile 터치 기준을 동시에 만족합니다.</p></div>
+      <div class="card">
+        <div class="usage-loc">
+          <span>Popup</span><span>Modal</span><span>Drawer</span><span>Scene Settings</span><span>Panel</span>
+        </div>
+
+        <div class="block-label">Preview — PC vs Mobile</div>
+        <div class="preview-stage">
+          <div style="text-align:center;">
+            <button class="cb-demo" style="--cb-size:36px;"><span class="cb-visual"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span></button>
+            <div class="hit-caption">PC · Hit 36×36</div>
+          </div>
+          <div style="text-align:center;">
+            <button class="cb-demo" style="--cb-size:44px;"><span class="cb-visual"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span></button>
+            <div class="hit-caption">Mobile · Hit 44×44</div>
+          </div>
+        </div>
+
+        <div class="block-label">Anatomy — Widget Tree</div>
+        <div class="folder-tree" style="border:1px solid var(--border-default); border-radius:var(--r-md); padding:var(--sp-5); background:var(--bg-canvas);">
+          <b>WBP_SP_Btn_Close</b><br>
+          └─ SizeBox_HitArea <span class="cm">// PC 36×36 / Mobile 44×44</span><br>
+          │　└─ Overlay_HitRoot<br>
+          │　　├─ SizeBox_Visual <span class="cm">// 28×28 고정, 애니메이션 대상</span><br>
+          │　　│　└─ Overlay_Root<br>
+          │　　│　　├─ Image_Background<br>
+          │　　│　　└─ Image_CloseIcon<br>
+          │　　└─ Button_Close <span class="cm">// Input Layer 전용</span>
+        </div>
+
+        <div class="block-label">Resource</div>
+        <div class="usage-grid">
+          <div class="usage-chip"><span class="dot" style="background:var(--primary-base);"></span>Texture — <code class="mono">T_SP_Btn_Close_BG</code></div>
+          <div class="usage-chip"><span class="dot" style="background:var(--secondary-base);"></span>Icon — <code class="mono">T_SP_Icon_Close</code></div>
+        </div>
+
+        <div class="block-label">Size — PC / Mobile</div>
+        <div class="spec-grid cols-2">
+          <div class="spec-card">
+            <div class="spec-title">PC</div>
+            <div style="display:flex; align-items:center; justify-content:center; height:100px;">
+              <div class="hit-guide" style="width:72px; height:72px;"><div class="visual-circle" style="width:56px; height:56px;">12×12</div></div>
+            </div>
+            <div class="hit-caption">Hit 36×36 · Visual 28×28</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-title">Mobile</div>
+            <div style="display:flex; align-items:center; justify-content:center; height:100px;">
+              <div class="hit-guide" style="width:88px; height:88px;"><div class="visual-circle" style="width:56px; height:56px;">12×12</div></div>
+            </div>
+            <div class="hit-caption">Hit 44×44 · Visual 28×28</div>
+          </div>
+        </div>
+
+        <div class="block-label">States</div>
+        <div style="overflow-x:auto;">
+          <table class="naming-table">
+            <tr><th>State</th><th>Background</th><th>Icon</th><th>Scale</th></tr>
+            <tr><td>Default</td><td>Normal</td><td>White 100%</td><td>1.0</td></tr>
+            <tr><td>Hover (PC)</td><td>+8% Brighter</td><td>White 100%</td><td>1.0</td></tr>
+            <tr><td>Pressed</td><td>Normal</td><td>White 100%</td><td>0.94</td></tr>
+            <tr><td>Disabled</td><td>Opacity 30%</td><td>Opacity 30%</td><td>1.0</td></tr>
+          </table>
+        </div>
+
+        <div class="block-label">Animation</div>
+        <div class="anim-timeline">
+          <div class="anim-row"><div class="anim-tag">Pressed</div><div class="anim-meta">0.00s → 0.06s · 1.00 → 0.94</div><button class="cb-demo" id="cbAnimPressed" style="--cb-size:28px;"><span class="cb-visual" style="width:22px;height:22px;"></span></button></div>
+          <div class="anim-row"><div class="anim-tag">Released</div><div class="anim-meta">0.00s → 0.08s · 0.94 → 1.00</div><span class="chip-soon" style="opacity:1;">Ease Out</span></div>
+        </div>
+
+        <div class="block-label">Blueprint Flow</div>
+        <div class="flow-diagram">
+          <div class="flow-node event">OnHovered / OnUnhovered <span style="font-weight:500; color:var(--text-tertiary);">(PC Only)</span></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node">OnPressed → Play Anim_Pressed</div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node">OnReleased → Play Anim_Released</div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node event">OnClicked → OnCloseClicked (Dispatcher)</div>
+        </div>
+
+        <div class="block-label">Developer Notes</div>
+        <div class="note-list">
+          <div class="note-item"><span class="note-num">1</span><div><b>Hit Area 고정 유지</b> — 애니메이션은 SizeBox_Visual에만 적용합니다.</div></div>
+          <div class="note-item"><span class="note-num">2</span><div><b>Input Layer 분리</b> — Button_Close는 입력만 담당, 실제 닫기 처리는 Parent Widget이 <code class="mono">OnCloseClicked</code>로 수행합니다.</div></div>
+          <div class="note-item"><span class="note-num">3</span><div><b>Hover는 PC Only</b> — 모바일에서는 OnHovered/OnUnhovered 바인딩을 생략합니다.</div></div>
+        </div>
+
+        <div class="block-label">Playground</div>
+        <div class="playground">
+          <div class="pg-stage"><button class="cb-demo" id="pgClose" style="--cb-size:36px;"><span class="cb-visual"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span></button></div>
+          <div class="pg-controls">
+            <div class="pg-field"><label>Platform</label><div class="segment" data-pg="platform" style="width:100%;"><button class="active" data-val="pc">PC</button><button data-val="mobile">Mobile</button></div></div>
+            <div class="pg-field"><label>State</label><div class="segment" data-pg="cbstate" style="width:100%;"><button class="active" data-val="default">Default</button><button data-val="pressed">Pressed</button><button data-val="disabled">Disabled</button></div></div>
+          </div>
+        </div>
+
+        <div class="block-label">Code Example</div>
+        <div class="code-block">
+&lt;<span class="tok-key">button</span> <span class="tok-key">class</span>=<span class="tok-str">"cb-demo"</span>&gt;
+  &lt;<span class="tok-key">span</span> <span class="tok-key">class</span>=<span class="tok-str">"cb-visual"</span>&gt;&lt;<span class="tok-key">svg</span>&gt;...&lt;/<span class="tok-key">svg</span>&gt;&lt;/<span class="tok-key">span</span>&gt;
+&lt;/<span class="tok-key">button</span>&gt;
+<span class="tok-com">// Button_Close는 Input Layer 전용, 실제 닫기는 Parent가 OnCloseClicked로 처리</span>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================= SEGMENT -->
+    <section class="doc-section" id="c-segment">
+      <div class="sec-head"><div class="sec-kicker">Components / 03</div><h2>Segment</h2>
+      <p>SceneSettings 패널의 상단(환경/화면 · Primary)과 하단(일반/카툰 · Secondary) 세그먼트입니다. 실제로 클릭해 아래 Live Preview가 어떻게 바뀌는지 확인하세요.</p></div>
+      <div class="card">
+        <div class="preview-stage" style="flex-direction:column; gap:var(--sp-4);">
+          <div class="segment" data-segment="scene">
+            <button class="active" data-value="환경">환경</button>
+            <button data-value="화면">화면</button>
+          </div>
+          <div class="segment secondary" data-segment="mode">
+            <button data-value="일반">일반</button>
+            <button class="active" data-value="카툰">카툰</button>
+          </div>
+        </div>
+
+        <div class="block-label">Live Preview — SceneSettings 연동</div>
+        <div class="preview-stage" style="justify-content:flex-start;">
+          <div class="seg-preview-panel">
+            <div class="seg-preview-tag" id="segTag">환경 · 카툰</div>
+            <div class="seg-preview-head">
+              <div class="seg-preview-icon" id="segIcon">🌤️</div>
+              <div>
+                <div class="seg-preview-title" id="segTitle">야외 환경 설정</div>
+                <div class="seg-preview-desc" id="segDesc">하늘, 지형, 조명 등 월드 전체에 적용됩니다.</div>
+              </div>
+            </div>
+            <div class="seg-preview-swatch toon" id="segSwatch">카툰 · 채도·외곽선 강조</div>
+          </div>
+        </div>
+
+        <div class="block-label">State Preview</div>
+        <div class="state-grid">
+          <div class="state-cell"><div class="segment" style="pointer-events:none;"><button>환경</button><button>화면</button></div><span>Default</span></div>
+          <div class="state-cell"><div class="segment" style="pointer-events:none;"><button style="background:var(--gray-50);color:var(--text-primary);">환경</button><button>화면</button></div><span>Hover</span></div>
+          <div class="state-cell"><div class="segment" style="pointer-events:none;"><button class="active">환경</button><button>화면</button></div><span>Selected</span></div>
+          <div class="state-cell"><div class="segment" style="pointer-events:none;"><button class="active" style="outline:3px solid rgba(49,130,246,0.25); outline-offset:1px;">환경</button><button>화면</button></div><span>Focused</span></div>
+          <div class="state-cell"><div class="segment" style="pointer-events:none; opacity:0.5;"><button class="active">환경</button><button>화면</button></div><span>Disabled</span></div>
+        </div>
+
+        <div class="block-label">Do / Don't</div>
+        <div class="dd-grid">
+          <div class="dd-card do"><div class="dd-tag">✓ Do</div><p>상단(대상 전환)은 Primary, 하단(보조 옵션)은 Secondary 색상 규칙을 유지합니다.</p></div>
+          <div class="dd-card dont"><div class="dd-tag">✕ Don't</div><p>하단 세그먼트에 Primary를 사용해 상단과 동일한 위계처럼 보이게 하지 않습니다.</p></div>
+        </div>
+
+        <div class="block-label">Code Example</div>
+        <div class="code-block">
+&lt;<span class="tok-key">div</span> <span class="tok-key">class</span>=<span class="tok-str">"segment"</span> <span class="tok-key">data-segment</span>=<span class="tok-str">"scene"</span>&gt;
+  &lt;<span class="tok-key">button</span> <span class="tok-key">class</span>=<span class="tok-str">"active"</span> <span class="tok-key">data-value</span>=<span class="tok-str">"환경"</span>&gt;환경&lt;/<span class="tok-key">button</span>&gt;
+  &lt;<span class="tok-key">button</span> <span class="tok-key">data-value</span>=<span class="tok-str">"화면"</span>&gt;화면&lt;/<span class="tok-key">button</span>&gt;
+&lt;/<span class="tok-key">div</span>&gt;
+<span class="tok-com">// 클릭 시 active 토글 + 연결된 Preview 갱신</span>
+document.querySelectorAll(<span class="tok-str">'.segment button'</span>).forEach(btn =&gt; {
+  btn.addEventListener(<span class="tok-str">'click'</span>, () =&gt; { <span class="tok-com">/* ...updateSegPreview() */</span> });
+});
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================= TOGGLE -->
+    <section class="doc-section" id="c-toggle">
+      <div class="sec-head"><div class="sec-kicker">Components / 04</div><h2>Toggle</h2>
+      <p>iOS 스타일 40×22 규격의 토글입니다. 아래는 실제 SceneSettings의 Server Sync 패턴 — 켜면 하위 조절 UI가 잠기고 라임 그린 "동기화 끄기" 버튼이 나타납니다.</p></div>
+      <div class="card">
+        <div class="preview-stage" style="flex-direction:column; align-items:flex-start; gap:var(--sp-5);">
+          <div class="sync-row">
+            <div>
+              <div class="lbl-title">서버 시간 동기화</div>
+              <div class="lbl-desc">켜면 시간이 서버 기준으로 고정되고, 아래 시간 조절이 잠깁니다.</div>
+            </div>
+            <div class="toggle" id="syncToggle" onclick="toggleSync()"><div class="knob"></div></div>
+          </div>
+
+          <div class="lock-target" id="timeLockTarget">
+            <div class="stepper">
+              <button onclick="if(!document.getElementById('timeLockTarget').classList.contains('locked')) syncStepChange(-1)">−</button>
+              <div class="val" id="syncStepVal">14:00</div>
+              <button onclick="if(!document.getElementById('timeLockTarget').classList.contains('locked')) syncStepChange(1)">+</button>
+            </div>
+            <button class="lime-btn" onclick="toggleSync()">🔓 동기화 끄기</button>
+          </div>
+        </div>
+
+        <div class="block-label">State Preview</div>
+        <div class="state-grid">
+          <div class="state-cell"><div class="toggle"><div class="knob"></div></div><span>Off</span></div>
+          <div class="state-cell"><div class="toggle on"><div class="knob"></div></div><span>On</span></div>
+          <div class="state-cell"><div class="toggle" style="box-shadow:0 0 0 4px rgba(49,130,246,0.18);"><div class="knob"></div></div><span>Focused</span></div>
+          <div class="state-cell"><div class="toggle st-disabled"><div class="knob"></div></div><span>Disabled</span></div>
+        </div>
+
+        <div class="block-label">Do / Don't</div>
+        <div class="dd-grid">
+          <div class="dd-card do"><div class="dd-tag">✓ Do</div><p>동기화로 잠긴 하위 컨트롤은 점선 테두리 + 채도 저하로 "왜 조작이 안 되는지"를 함께 알려줍니다.</p></div>
+          <div class="dd-card dont"><div class="dd-tag">✕ Don't</div><p>잠금 상태를 Toggle 색상만으로 표현하고 하위 컨트롤의 잠금 여부는 별도 표시 없이 두지 않습니다.</p></div>
+        </div>
+
+        <div class="block-label">Code Example</div>
+        <div class="code-block">
+&lt;<span class="tok-key">div</span> <span class="tok-key">class</span>=<span class="tok-str">"toggle"</span> <span class="tok-key">onclick</span>=<span class="tok-str">"toggleSync()"</span>&gt;
+  &lt;<span class="tok-key">div</span> <span class="tok-key">class</span>=<span class="tok-str">"knob"</span>&gt;&lt;/<span class="tok-key">div</span>&gt;
+&lt;/<span class="tok-key">div</span>&gt;
+&lt;<span class="tok-key">div</span> <span class="tok-key">class</span>=<span class="tok-str">"lock-target"</span> <span class="tok-key">id</span>=<span class="tok-str">"timeLockTarget"</span>&gt;
+  <span class="tok-com">&lt;!-- Stepper + 라임 그린 "동기화 끄기" 버튼 --&gt;</span>
+&lt;/<span class="tok-key">div</span>&gt;
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================================= SLIDER -->
+    <section class="doc-section" id="c-slider">
+      <div class="sec-head"><div class="sec-kicker">Components / 05</div><h2>Slider</h2>
+      <p>날씨 강도, 시간(Time-of-day) 등 연속값 조절에 사용합니다.</p></div>
+      <div class="card">
+        <div class="preview-stage">
+          <div class="slider-wrap">
+            <div class="slider-track" id="sliderTrack">
+              <div class="slider-fill" id="sliderFill" style="width:40%;"></div>
+              <div class="slider-thumb" id="sliderThumb" style="left:40%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================= STEPPER -->
+    <section class="doc-section" id="c-stepper">
+      <div class="sec-head"><div class="sec-kicker">Components / 06</div><h2>Stepper</h2>
+      <p>WBP_SP_Stepper — −/값/+ 3구조. 값 변경 시 <code>OnValueChanged</code> 디스패처가 호출됩니다.</p></div>
+      <div class="card">
+        <div class="preview-stage">
+          <div class="stepper"><button onclick="stepChange(-1)">−</button><div class="val" id="stepVal">3</div><button onclick="stepChange(1)">+</button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================= INPUT -->
+    <section class="doc-section" id="c-input">
+      <div class="sec-head"><div class="sec-kicker">Components / 07</div><h2>Input</h2>
+      <p>포커스 시 Primary 컬러의 4px 링으로 상태를 명확히 표시합니다.</p></div>
+      <div class="card">
+        <div class="preview-stage">
+          <div class="field"><label>스페이스 이름</label><input type="text" placeholder="마이 스페이스"></div>
+          <div class="field"><label>비활성 필드</label><input type="text" class="st-disabled" value="편집 불가" disabled></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================= DROPDOWN -->
+    <section class="doc-section" id="c-dropdown">
+      <div class="sec-head"><div class="sec-kicker">Components / 08</div><h2>Dropdown</h2>
+      <p>WBP_SP_DropdownOption — 필터/정렬 등 다중 옵션 선택에 사용합니다.</p></div>
+      <div class="card">
+        <div class="preview-stage">
+          <div class="dropdown">
+            <div class="dd-trigger" id="ddTrigger" onclick="toggleDropdown()"><span id="ddLabel">맑음</span><span>⌄</span></div>
+            <div class="dd-menu" id="ddMenu">
+              <div class="dd-item sel" onclick="selectDD(this,'맑음')">맑음</div>
+              <div class="dd-item" onclick="selectDD(this,'흐림')">흐림</div>
+              <div class="dd-item" onclick="selectDD(this,'비')">비</div>
+              <div class="dd-item" onclick="selectDD(this,'눈')">눈</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================= CHECKBOX -->
+    <section class="doc-section" id="c-checkbox">
+      <div class="sec-head"><div class="sec-kicker">Components / 09</div><h2>Checkbox</h2>
+      <p>다중 선택 옵션에 사용하며, 선택 시 Primary 컬러로 채워집니다.</p></div>
+      <div class="card">
+        <div class="preview-stage">
+          <div class="chk-row"><div class="chk" onclick="toggleChk(this)"></div>Toon Shader 함께 적용</div>
+          <div class="chk-row"><div class="chk on"><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>선택됨</div>
+          <div class="chk-row"><div class="chk st-disabled"></div>비활성</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================= TOOLTIP -->
+    <section class="doc-section" id="c-tooltip">
+      <div class="sec-head"><div class="sec-kicker">Components / 10</div><h2>Tooltip</h2>
+      <p>아이콘 버튼 등 레이블이 없는 요소에 대한 짧은 설명을 제공합니다.</p></div>
+      <div class="card">
+        <div class="preview-stage">
+          <div class="tt-wrap"><button class="btn btn-secondary">동기화</button><div class="tt-bubble">서버와 시간을 동기화합니다</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================= MODAL -->
+    <section class="doc-section" id="c-modal">
+      <div class="sec-head"><div class="sec-kicker">Components / 11</div><h2>Modal</h2>
+      <p>파괴적이거나 되돌릴 수 없는 액션 전 확인에 사용합니다.</p></div>
+      <div class="card">
+        <div class="preview-stage"><button class="btn btn-primary" onclick="openModal()">설정 초기화</button></div>
+      </div>
+    </section>
+
+    <!-- ================================================= TOAST -->
+    <section class="doc-section" id="c-toast">
+      <div class="sec-head"><div class="sec-kicker">Components / 12</div><h2>Toast</h2>
+      <p>비파괴적인 액션 완료 피드백에 사용하며, 3초 후 자동으로 사라집니다.</p></div>
+      <div class="card">
+        <div class="preview-stage"><button class="btn btn-secondary" onclick="showToast()">필터 적용됨 토스트 보기</button></div>
+      </div>
+    </section>
+
+    <!-- ================================================= RESPONSIVE -->
+    <section class="doc-section" id="p-responsive">
+      <div class="sec-head"><div class="sec-kicker">Patterns / 01</div><h2>Responsive</h2>
+      <p>PC/Mobile 동시 대응. 동일한 데이터 바인딩(DataTable) 구조를 유지하며 레이아웃만 브레이크포인트에 따라 전환합니다.</p></div>
+      <div class="card">
+        <div class="rp-toolbar">
+          <button class="active" data-w="1280">Desktop</button>
+          <button data-w="768">Tablet</button>
+          <button data-w="375">Mobile</button>
+        </div>
+        <div class="rp-frame" id="rpFrame" style="width:640px;">
+          <div class="rp-inner">
+            <div class="rp-panel">
+              <h4>씬 세팅</h4>
+              <div class="row"><span>날씨</span><span>맑음 ⌄</span></div>
+              <div class="row"><span>시간</span><span>14:00</span></div>
+              <div class="row"><span>필터</span><span>일반</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================= ACCESSIBILITY -->
+    <section class="doc-section" id="p-a11y">
+      <div class="sec-head"><div class="sec-kicker">Patterns / 02</div><h2>Accessibility</h2>
+      <p>PC, 모바일, 게임패드 등 다양한 입력 방식을 모두 고려한 접근성 기준입니다.</p></div>
+      <div class="a11y-grid">
+        <div class="a11y-card"><h4>🎨 Contrast</h4><p>텍스트 대비 최소 4.5:1, 큰 텍스트(18px+) 3:1 이상을 유지합니다.</p></div>
+        <div class="a11y-card"><h4>👆 Touch Area</h4><p>모든 인터랙티브 요소는 최소 44×44px의 터치 영역을 확보합니다.</p></div>
+        <div class="a11y-card"><h4>⌨️ Keyboard Focus</h4><p>Tab 순서는 시각적 흐름과 일치하며, 포커스는 항상 명확히 표시됩니다.</p></div>
+        <div class="a11y-card"><h4>🔵 Focus Ring</h4><p>Primary 4px Ring을 모든 포커스 가능한 요소에 일관되게 적용합니다.</p></div>
+        <div class="a11y-card"><h4>🎮 Gamepad</h4><p>D-Pad/Stick 내비게이션 시 포커스 순서는 Grid 인덱스를 따릅니다.</p></div>
+        <div class="a11y-card"><h4>🔊 Screen Reader</h4><p>아이콘 전용 버튼에는 반드시 접근성 레이블을 지정합니다.</p></div>
+      </div>
+    </section>
+
+    <!-- ================================================= ANIMATION -->
+    <section class="doc-section" id="p-motion">
+      <div class="sec-head"><div class="sec-kicker">Patterns / 03</div><h2>Animation</h2>
+      <p>Motion 토큰이 실제 UI 전환에 적용되는 방식입니다.</p></div>
+      <div class="card">
+        <div class="preview-stage">
+          <div class="dropdown" style="width:200px;"><div class="dd-trigger" onclick="this.nextElementSibling.classList.toggle('open')">Fade + Scale <span>⌄</span></div><div class="dd-menu"><div class="dd-item">Slide</div><div class="dd-item">Opacity</div></div></div>
+        </div>
+        <p style="font-size:13px; color:var(--text-secondary); margin-top:var(--sp-3);">Dropdown 진입: opacity 0→1 + translateY(-4px→0), 120ms, ease-decel.</p>
+      </div>
+    </section>
+
+    <!-- ================================================= UNREAL GUIDE -->
+    <section class="doc-section" id="p-unreal">
+      <div class="sec-head"><div class="sec-kicker">Patterns / 04</div><h2>Unreal Guide</h2>
+      <p>이 디자인 시스템을 UMG에 그대로 이식하기 위한 위젯 트리, 네이밍, 상태 관리, 애니메이션, Blueprint 구조 가이드입니다.</p></div>
+
+      <div class="block-label">Widget Tree</div>
+      <div class="card folder-tree">
+        <b>WBP_SP_SceneSettings</b> <span class="cm">(UserWidget)</span><br>
+        ├─ SizeBox<br>
+        │　└─ Overlay<br>
+        │　　├─ Border <span class="cm">(Panel BG)</span><br>
+        │　　└─ VerticalBox<br>
+        │　　　├─ <b>WBP_SP_SelectableChip</b> ×N <span class="cm">(환경/화면)</span><br>
+        │　　　├─ <b>WBP_SP_Stepper</b> <span class="cm">(강도 조절)</span><br>
+        │　　　├─ <b>WBP_SP_RadioOption</b> ×N <span class="cm">(필터)</span><br>
+        │　　　└─ <b>WBP_SP_DropdownOption</b> <span class="cm">(날씨)</span>
+      </div>
+
+      <div class="block-label">Naming Rule</div>
+      <div class="card">
+        <table class="naming-table">
+          <tr><th>Prefix</th><th>대상</th><th>예시</th></tr>
+          <tr><td><code>WBP_SP_</code></td><td>UMG Widget Blueprint</td><td class="mono">WBP_SP_SceneSettings</td></tr>
+          <tr><td><code>T_SP_UI_</code></td><td>UI 텍스처</td><td class="mono">T_SP_UI_Glow_Radial</td></tr>
+          <tr><td><code>DT_SP_</code></td><td>DataTable</td><td class="mono">DT_SP_UISize</td></tr>
+          <tr><td><code>FS_SP_</code></td><td>Struct</td><td class="mono">FS_SP_SceneSettings</td></tr>
+          <tr><td><code>MPC_SP_</code></td><td>Material Parameter Collection</td><td class="mono">MPC_SP_SpaceTheme</td></tr>
+        </table>
+      </div>
+
+      <div class="block-label">State 관리</div>
+      <div class="card">
+        <p style="font-size:13.5px; color:var(--text-secondary); line-height:1.8;">모든 상태는 <code class="mono">Enum</code> 기반으로 관리합니다. 선택 상태는 <code class="mono">Brush_Default</code> / <code class="mono">Brush_Selected</code> Slate Brush 변수를 스왑하는 방식으로 구현하며, 프리뷰는 <code class="mono">Event PreConstruct</code>에서 즉시 반영합니다.</p>
+        <div class="brand-callout" style="margin-top:var(--sp-4);">
+          <div class="chip"></div>
+          <p><b>SuperPlat Brand Accent — #CBF400</b><br>Server Sync Lock 등 브랜드 강조가 필요한 특수 상태(예: 동기화 잠금 시 "동기화 끄기" 버튼)에 한해 Primary 대신 라임 그린을 사용합니다. 일반 UI 상태에는 사용하지 않습니다.</p>
+        </div>
+      </div>
+
+      <div class="block-label">Animation 적용</div>
+      <div class="card">
+        <p style="font-size:13.5px; color:var(--text-secondary); line-height:1.8;">UMG Animation 트랙은 머티리얼 인스턴스별 스칼라 파라미터를 직접 키프레임할 수 없습니다. 아이콘 스케일 등 위젯 트랜스폼은 Animation 트랙으로, 머티리얼 파라미터(Glow, Pulse 등)는 Blueprint의 <code class="mono">Set Scalar Parameter Value</code>로 제어합니다.</p>
+      </div>
+
+      <div class="block-label">Blueprint 구조</div>
+      <div class="card folder-tree">
+        <b>BP_SP_EmoteSlotManager</b><br>
+        ├─ DataTable Row Lookup <span class="cm">(DT_SP_ 계열)</span><br>
+        ├─ <b>SetSlotActive(bool)</b> → MID ×3 동시 제어<br>
+        │　 ├─ M_SP_SlotBG_Glow<br>
+        │　 ├─ M_SP_SlotRing_Glow<br>
+        │　 └─ M_SP_SlotAura_Glow<br>
+        └─ Dispatcher: <b>OnValueChanged / OnRadioSelected</b>
+      </div>
+
+      <div class="block-label">Recommended Folder Structure</div>
+      <div class="card folder-tree">
+        Content/SuperPlat/UI/<br>
+        ├─ Widgets/SceneSettings/<br>
+        ├─ Widgets/Atomic/ <span class="cm">(Stepper, RadioOption, DropdownOption...)</span><br>
+        ├─ Textures/T_SP_UI_/<br>
+        ├─ Materials/MPC_SP_SpaceTheme/<br>
+        ├─ DataTables/DT_SP_/<br>
+        └─ Structs&Enums/FS_SP_ · E_SP_
+      </div>
+    </section>
+
+    <!-- ================================================= MOTION SYSTEM (NEW) -->
+    <section class="doc-section" id="sys-motion">
+      <div class="sec-head"><div class="sec-kicker">System</div><h2>Motion System</h2>
+      <p>Button과 Close Button에 사용된 모션을 포함해, 전체 컴포넌트가 공유하는 Duration / Easing 규칙을 한 곳에 정리했습니다.</p></div>
+      <div class="card">
+        <table style="width:100%; border-collapse:collapse; font-size:13px;">
+          <tr style="color:var(--text-tertiary); font-size:11.5px; text-transform:uppercase;"><td style="padding:8px 0;">Token</td><td>Duration</td><td>Easing</td><td>Usage</td></tr>
+          <tr style="border-top:1px solid var(--gray-100);"><td style="padding:10px 0; font-weight:700;">fast</td><td>120ms</td><td class="mono">ease-standard</td><td>Hover, Button BG Transition, Ripple</td></tr>
+          <tr style="border-top:1px solid var(--gray-100);"><td style="padding:10px 0; font-weight:700;">press</td><td>60–90ms</td><td class="mono">ease-standard / ease-out</td><td>Button Scale 0.98, Close Button Scale 0.94</td></tr>
+          <tr style="border-top:1px solid var(--gray-100);"><td style="padding:10px 0; font-weight:700;">base</td><td>200ms</td><td class="mono">ease-decel</td><td>Toggle, Segment, Dropdown</td></tr>
+          <tr style="border-top:1px solid var(--gray-100);"><td style="padding:10px 0; font-weight:700;">loading</td><td>1050ms loop</td><td class="mono">ease-in-out</td><td>Button Loading Dot 순차 재생</td></tr>
+          <tr style="border-top:1px solid var(--gray-100);"><td style="padding:10px 0; font-weight:700;">slow</td><td>320ms</td><td class="mono">ease-decel</td><td>Modal, Toast, Panel</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <span>SuperPlat Design System · 더크로싱랩</span>
+      <span>Built with HTML · CSS · Vanilla JS</span>
+    </footer>
+
+  </main>
+</div>
+
+<!-- ============================================================ MODAL / TOAST (portal) -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal-card">
+    <h3>설정을 초기화할까요?</h3>
+    <p>SceneSettings의 날씨, 시간, 필터 값이 기본값으로 되돌아갑니다. 이 작업은 되돌릴 수 없습니다.</p>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal()">취소</button>
+      <button class="btn btn-primary" onclick="closeModal()">초기화</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"><span class="tdot"></span>필터가 적용되었습니다</div>
+
+<script>
+/* ---------- Color scale generation ---------- */
+function hexToHsl(hex){
+  let r=parseInt(hex.slice(1,3),16)/255, g=parseInt(hex.slice(3,5),16)/255, b=parseInt(hex.slice(5,7),16)/255;
+  let max=Math.max(r,g,b), min=Math.min(r,g,b), h,s,l=(max+min)/2;
+  if(max===min){ h=s=0; } else {
+    let d=max-min; s=l>0.5? d/(2-max-min) : d/(max+min);
+    switch(max){ case r: h=(g-b)/d+(g<b?6:0); break; case g: h=(b-r)/d+2; break; default: h=(r-g)/d+4; }
+    h*=60;
+  }
+  return [h, s*100, l*100];
+}
+function hslStr(h,s,l){ return `hsl(${h}, ${s}%, ${l}%)`; }
+const shadeKeys = [50,100,200,300,400,500,600,700,800,900];
+const lightMap =  [96, 91, 82, 71, 63, null, 50, 42, 33, 24];
+
+function renderPalette(containerId, baseHex){
+  const [h,s,l] = hexToHsl(baseHex);
+  const el = document.getElementById(containerId);
+  shadeKeys.forEach((key,i)=>{
+    const L = lightMap[i]===null ? l : lightMap[i];
+    const bg = hslStr(Math.round(h), Math.round(s), Math.round(L));
+    const textColor = L > 60 ? '#191F28' : '#FFFFFF';
+    const div = document.createElement('div');
+    div.className='swatch';
+    div.style.background=bg;
+    div.style.color=textColor;
+    div.innerHTML = `<b>${key}</b><span>${bg}</span>`;
+    div.title = 'Click to copy: '+bg;
+    div.onclick = ()=>{ navigator.clipboard.writeText(bg); div.style.transform='translateY(-3px) scale(0.96)'; setTimeout(()=>div.style.transform='',150); };
+    el.appendChild(div);
+  });
+}
+renderPalette('palette-primary', '#3182F6');
+renderPalette('palette-secondary', '#64748B');
+
+/* ---------- Spacing list ---------- */
+const spacing = [4,8,12,16,20,24,32,40,48,64];
+const spEl = document.getElementById('spacing-list');
+spacing.forEach(v=>{
+  const row = document.createElement('div');
+  row.className='token-row';
+  row.innerHTML = `<div class="token-name">${v}px</div><div class="token-bar" style="width:${v*3}px;"></div><div class="token-val">--sp-${v}</div>`;
+  spEl.appendChild(row);
+});
+
+/* ---------- Scrollspy ---------- */
+const links = document.querySelectorAll('.nav-link');
+const sections = [...links].map(l=>document.getElementById(l.dataset.target)).filter(Boolean);
+links.forEach(l=> l.addEventListener('click', ()=>{ document.getElementById(l.dataset.target).scrollIntoView({behavior:'smooth'}); }));
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      links.forEach(l=>l.classList.remove('active'));
+      const match = document.querySelector(`.nav-link[data-target="${entry.target.id}"]`);
+      if(match) match.classList.add('active');
+    }
+  });
+}, { rootMargin: '-15% 0px -70% 0px' });
+sections.forEach(s=>io.observe(s));
+
+/* ---------- Segment (generic click + live preview) ---------- */
+const sceneMap = {
+  '환경': { icon:'🌤️', title:'야외 환경 설정', desc:'하늘, 지형, 조명 등 월드 전체에 적용됩니다.' },
+  '화면': { icon:'🖥️', title:'화면 필터 설정', desc:'카메라 후처리(필터, 색보정)에 적용됩니다.' },
+};
+const modeMap = {
+  '일반': { cls:'', label:'자연스러운 톤 — 사실적인 라이팅' },
+  '카툰': { cls:'toon', label:'채도·외곽선 강조 — Toon Shader' },
+};
+function updateSegPreview(){
+  const sceneBtn = document.querySelector('.segment[data-segment="scene"] button.active');
+  const modeBtn = document.querySelector('.segment[data-segment="mode"] button.active');
+  if(!sceneBtn || !modeBtn) return;
+  const scene = sceneMap[sceneBtn.dataset.value];
+  const mode = modeMap[modeBtn.dataset.value];
+  document.getElementById('segTag').textContent = sceneBtn.dataset.value + ' · ' + modeBtn.dataset.value;
+  document.getElementById('segIcon').textContent = scene.icon;
+  document.getElementById('segTitle').textContent = scene.title;
+  document.getElementById('segDesc').textContent = scene.desc;
+  const swatch = document.getElementById('segSwatch');
+  swatch.className = 'seg-preview-swatch ' + mode.cls;
+  swatch.textContent = modeBtn.dataset.value + ' · ' + mode.label;
+}
+document.querySelectorAll('.segment[data-segment] button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    btn.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    updateSegPreview();
+  });
+});
+updateSegPreview();
+
+/* ---------- Toggle — Server Sync lock demo ---------- */
+function toggleSync(){
+  const t = document.getElementById('syncToggle');
+  const lock = document.getElementById('timeLockTarget');
+  t.classList.toggle('on');
+  lock.classList.toggle('locked', t.classList.contains('on'));
+}
+let syncStepValue = 14;
+function syncStepChange(delta){
+  syncStepValue = Math.max(0, Math.min(23, syncStepValue+delta));
+  document.getElementById('syncStepVal').textContent = String(syncStepValue).padStart(2,'0')+':00';
+}
+
+/* ---------- Stepper ---------- */
+let stepValue = 3;
+function stepChange(delta){
+  stepValue = Math.max(0, Math.min(10, stepValue+delta));
+  document.getElementById('stepVal').textContent = stepValue;
+}
+
+/* ---------- Slider ---------- */
+const track = document.getElementById('sliderTrack');
+const fill = document.getElementById('sliderFill');
+const thumb = document.getElementById('sliderThumb');
+let dragging=false;
+function setSlider(clientX){
+  const rect = track.getBoundingClientRect();
+  let pct = ((clientX-rect.left)/rect.width)*100;
+  pct = Math.max(0, Math.min(100, pct));
+  fill.style.width = pct+'%';
+  thumb.style.left = pct+'%';
+}
+track.addEventListener('mousedown', e=>{ dragging=true; setSlider(e.clientX); });
+window.addEventListener('mousemove', e=>{ if(dragging) setSlider(e.clientX); });
+window.addEventListener('mouseup', ()=> dragging=false);
+
+/* ---------- Checkbox ---------- */
+function toggleChk(el){
+  el.classList.toggle('on');
+  if(el.classList.contains('on')){
+    el.innerHTML = '<svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  } else { el.innerHTML=''; }
+}
+
+/* ---------- Dropdown ---------- */
+function toggleDropdown(){
+  document.getElementById('ddTrigger').classList.toggle('open');
+  document.getElementById('ddMenu').classList.toggle('open');
+}
+function selectDD(el, label){
+  document.getElementById('ddLabel').textContent = label;
+  [...el.parentElement.children].forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  toggleDropdown();
+}
+document.addEventListener('click', (e)=>{
+  const dd = document.querySelector('#c-dropdown .dropdown');
+  if(dd && !dd.contains(e.target)){
+    document.getElementById('ddTrigger').classList.remove('open');
+    document.getElementById('ddMenu').classList.remove('open');
+  }
+});
+
+/* ---------- Modal ---------- */
+function openModal(){ document.getElementById('modalOverlay').classList.add('open'); }
+function closeModal(){ document.getElementById('modalOverlay').classList.remove('open'); }
+
+/* ---------- Toast ---------- */
+let toastTimer;
+function showToast(){
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=> t.classList.remove('show'), 3000);
+}
+
+/* ---------- Responsive preview ---------- */
+document.querySelectorAll('.rp-toolbar button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.rp-toolbar button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('rpFrame').style.width = Math.min(btn.dataset.w, 640)+'px';
+  });
+});
+
+/* ---------- Button Playground ---------- */
+const pgBtn = document.getElementById('pgBtn');
+const pgState = { type:'btn-primary', size:'44px|0 20px|14.5px|10px', loading:false, disabled:false };
+function renderPgBtn(){
+  const [h,p,f,r] = pgState.size.split('|');
+  pgBtn.className = 'btn ' + pgState.type;
+  pgBtn.style.height = h; pgBtn.style.padding = p; pgBtn.style.fontSize = f; pgBtn.style.borderRadius = r;
+  pgBtn.disabled = pgState.disabled;
+  pgBtn.innerHTML = pgState.loading ? '<span class="spinner"></span>버튼' : '버튼';
+  pgBtn.classList.toggle('st-disabled', pgState.disabled);
+}
+document.querySelectorAll('.segment[data-pg="type"] button, .segment[data-pg="size"] button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const group = btn.parentElement.dataset.pg;
+    btn.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    pgState[group] = btn.dataset.val;
+    renderPgBtn();
+  });
+});
+document.getElementById('pgLoading')?.addEventListener('change', e=>{ pgState.loading = e.target.checked; renderPgBtn(); });
+document.getElementById('pgDisabled')?.addEventListener('change', e=>{ pgState.disabled = e.target.checked; renderPgBtn(); });
+renderPgBtn();
+
+/* ---------- Close Button Playground ---------- */
+const pgClose = document.getElementById('pgClose');
+const cbState = { platform:'pc', cbstate:'default' };
+function renderPgClose(){
+  pgClose.style.setProperty('--cb-size', cbState.platform==='pc' ? '36px' : '44px');
+  pgClose.classList.remove('st-pressed','st-disabled');
+  if(cbState.cbstate==='pressed') pgClose.classList.add('st-pressed');
+  if(cbState.cbstate==='disabled') pgClose.classList.add('st-disabled');
+}
+document.querySelectorAll('.segment[data-pg="platform"] button, .segment[data-pg="cbstate"] button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const group = btn.parentElement.dataset.pg;
+    btn.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    cbState[group] = btn.dataset.val;
+    renderPgClose();
+  });
+});
+renderPgClose();
+
+/* ---------- Close Button — press demo ---------- */
+document.getElementById('cbAnimPressed')?.addEventListener('click', function(){
+  this.classList.add('st-pressed');
+  setTimeout(()=> this.classList.remove('st-pressed'), 140);
+});
+
+/* ---------- Copy code ---------- */
+function copyCode(btn){
+  const block = btn.parentElement;
+  const clone = block.cloneNode(true);
+  clone.querySelector('.copy-btn')?.remove();
+  navigator.clipboard.writeText(clone.innerText.trim());
+  btn.textContent='Copied!';
+  setTimeout(()=> btn.textContent='Copy', 1200);
+}
+</script>
+</body>
+</html>
